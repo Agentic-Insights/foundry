@@ -1,0 +1,18 @@
+[project]
+name = "agentcore-lg"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "bedrock-agentcore>=1.0.7",
+    "bedrock-agentcore-starter-toolkit>=0.2.0",
+    "duckduckgo-search>=8.1.1",
+    "fastapi>=0.123.0",
+    "langchain-aws>=1.1.0",
+    "langchain-community>=0.4.1",
+    "langgraph>=1.0.4",
+    "nova-act>=1.0.2734.0",
+    "opentelemetry-instrumentation-langchain>=0.49.5",
+    "pyjwt>=2.10.1",
+]
