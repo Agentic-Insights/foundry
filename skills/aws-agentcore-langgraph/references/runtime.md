@@ -122,25 +122,42 @@ curl http://localhost:8080/ping
 
 ### Configure
 ```bash
+# Interactive mode (prompts for options)
+agentcore configure -e agent.py --region us-east-1
+
+# Non-interactive mode (scripted deployments)
 agentcore configure -e agent.py \
-  --name my-agent \
+  --name my_agent \
   --region us-east-1 \
-  --disable-memory  # Skip memory setup if not needed
+  --non-interactive \
+  --disable-memory \
+  --deployment-type container \
+  --requirements-file pyproject.toml
 ```
+
+**Agent naming rules**:
+- Must start with a letter
+- Only letters, numbers, underscores allowed
+- 1-48 characters
+- Use `my_agent` NOT `my-agent` (hyphens invalid)
 
 Creates `.bedrock_agentcore.yaml` config file.
 
 ### Launch
 ```bash
-# Deploy to AWS
+# Deploy to AWS (uses CodeBuild for ARM64 container - recommended)
 agentcore launch
 
-# Local Docker testing
+# Local Docker testing (requires Docker/Podman)
 agentcore launch --local
 
-# Or use deploy with CodeBuild (no local Docker needed)
-agentcore deploy
+# Alternative: explicit deploy command
+agentcore deploy              # CodeBuild (default, recommended)
+agentcore deploy --local      # Local development
+agentcore deploy --local-build  # Build locally, deploy to cloud
 ```
+
+**Platform note**: AgentCore requires ARM64 containers. If your machine is x86_64/amd64, you'll see a "platform mismatch" warning - this is normal. CodeBuild (default) handles cross-platform builds automatically. No action needed.
 
 ### Invoke
 ```bash
@@ -169,18 +186,51 @@ agentcore destroy --force    # Skip confirmation
 
 ## Bedrock Models
 
-Common model IDs for `init_chat_model`:
+### Model ID Format
 
-| Model | ID |
-|-------|-----|
-| Claude 3 Haiku | `anthropic.claude-3-haiku-20240307-v1:0` |
-| Claude 3.5 Sonnet | `anthropic.claude-3-5-sonnet-20241022-v2:0` |
-| Claude 3.5 Haiku | `anthropic.claude-3-5-haiku-20241022-v1:0` |
-| Claude 4.5 Haiku (global) | `global.anthropic.claude-haiku-4-5-20251001-v1:0` |
+**Claude 3.x models** support direct on-demand access:
+```
+anthropic.claude-3-haiku-20240307-v1:0
+anthropic.claude-3-5-sonnet-20241022-v2:0
+```
+
+**Claude 4.x models** require inference profiles (region prefix):
+```
+us.anthropic.claude-haiku-4-5-20251001-v1:0      # US inference profile
+eu.anthropic.claude-haiku-4-5-20251001-v1:0      # EU inference profile
+```
+
+**CRITICAL**: Using `anthropic.claude-haiku-4-5-*` directly causes `ValidationException: on-demand throughput isn't supported`. Always use `us.anthropic.*` or `eu.anthropic.*` prefix for Claude 4.x models.
+
+### Recommended Models
+
+| Model | ID | Notes |
+|-------|-----|-------|
+| Claude 3 Haiku | `anthropic.claude-3-haiku-20240307-v1:0` | Fast, cheap, on-demand |
+| Claude 3.5 Haiku | `anthropic.claude-3-5-haiku-20241022-v1:0` | Better quality, on-demand |
+| Claude 3.5 Sonnet | `anthropic.claude-3-5-sonnet-20241022-v2:0` | High quality, on-demand |
+| Claude 4.5 Haiku | `us.anthropic.claude-haiku-4-5-20251001-v1:0` | Latest, requires inference profile |
+
+### Example
 
 ```python
+# Claude 3.5 (on-demand - simpler)
 llm = init_chat_model(
-    "anthropic.claude-3-5-sonnet-20241022-v2:0",
+    "anthropic.claude-3-5-haiku-20241022-v1:0",
+    model_provider="bedrock_converse"
+)
+
+# Claude 4.5 (requires US inference profile)
+llm = init_chat_model(
+    "us.anthropic.claude-haiku-4-5-20251001-v1:0",
     model_provider="bedrock_converse"
 )
 ```
+
+### Model Access Errors
+
+If you get `ResourceNotFoundException: Model use case details have not been submitted`:
+1. Go to AWS Bedrock Console → Model access
+2. Request access for the Anthropic model
+3. Fill out the Anthropic use case form
+4. Wait ~15 minutes for approval

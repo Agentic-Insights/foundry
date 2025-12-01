@@ -17,7 +17,7 @@ print("Starting up...")
 os.environ["LANGSMITH_OTEL_ENABLED"]= "true"
 
 llm = init_chat_model(
-    "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "us.anthropic.claude-haiku-4-5-20251001-v1:0",  # US inference profile for Claude 4.5 Haiku
     model_provider="bedrock_converse",
 )
 

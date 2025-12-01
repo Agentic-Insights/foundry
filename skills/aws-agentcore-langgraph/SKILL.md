@@ -42,9 +42,13 @@ app.run()
 # Setup
 pip install bedrock-agentcore bedrock-agentcore-starter-toolkit langgraph
 
-# Deploy
+# Deploy (interactive)
 agentcore configure -e agent.py --region us-east-1
 agentcore launch
+
+# Deploy (non-interactive/scripted)
+agentcore configure -e agent.py --region us-east-1 --name my_agent \
+  --non-interactive --disable-memory --deployment-type container
 
 # Test
 agentcore invoke '{"prompt": "Hello"}'
@@ -52,6 +56,8 @@ agentcore invoke '{"prompt": "Hello"}'
 # Cleanup
 agentcore destroy
 ```
+
+**Agent naming rules**: Must start with letter, contain only letters/numbers/underscores, 1-48 chars. Use `my_agent` not `my-agent`.
 
 ## Architecture Decision Tree
 
@@ -133,3 +139,7 @@ async def invoke(payload, context):
 | Cold start slow | Use `agentcore launch --local` for testing first |
 | Memory not persisting | Check if using AgentCore Memory vs LangGraph checkpointer |
 | Tools not executing | Verify `tools_condition` routing and tool binding |
+| `ValidationException: on-demand throughput isn't supported` | Claude 4.5 models require inference profiles. Use `us.anthropic.claude-*` not `anthropic.claude-*` |
+| `ResourceNotFoundException: Model use case details not submitted` | Fill out Anthropic use case form in AWS Bedrock Console → Model access |
+| `Invalid agent name` | Use underscores not hyphens: `my_agent` not `my-agent` |
+| Platform mismatch warning (amd64 vs arm64) | Normal - CodeBuild handles cross-platform ARM64 builds automatically |
