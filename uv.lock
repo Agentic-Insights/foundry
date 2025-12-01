@@ -24,6 +24,7 @@ dependencies = [
     { name = "nova-act" },
     { name = "opentelemetry-instrumentation-langchain" },
     { name = "pyjwt" },
+    { name = "python-dotenv" },
 ]
 
 [package.metadata]
@@ -40,6 +41,7 @@ requires-dist = [
     { name = "nova-act", specifier = ">=1.0.2734.0" },
     { name = "opentelemetry-instrumentation-langchain", specifier = ">=0.49.5" },
     { name = "pyjwt", specifier = ">=2.10.1" },
+    { name = "python-dotenv", specifier = ">=1.2.1" },
 ]
 
 [[package]]

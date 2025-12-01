@@ -10,15 +10,20 @@ from langgraph.prebuilt import ToolNode, tools_condition
 
 
 import logging
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 langchain_logger = logging.getLogger("langchain")
 langchain_logger.setLevel(logging.DEBUG)
-import os
+
 print("Starting up...")
-os.environ["LANGSMITH_OTEL_ENABLED"]= "true"
+os.environ["LANGSMITH_OTEL_ENABLED"] = os.getenv("LANGSMITH_OTEL_ENABLED", "true")
 
 llm = init_chat_model(
-    "us.anthropic.claude-haiku-4-5-20251001-v1:0",  # US inference profile for Claude 4.5 Haiku
-    model_provider="bedrock_converse",
+    os.getenv("BEDROCK_MODEL_ID", "us.anthropic.claude-haiku-4-5-20251001-v1:0"),
+    model_provider=os.getenv("BEDROCK_MODEL_PROVIDER", "bedrock_converse"),
 )
 
 ## Define search tool

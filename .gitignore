@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Environment files
+.env
+
+# AgentCore deployment artifacts (regenerate with: agentcore configure)
+.bedrock_agentcore.yaml
+.bedrock_agentcore/
