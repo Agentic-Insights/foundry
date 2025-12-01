@@ -143,3 +143,6 @@ async def invoke(payload, context):
 | `ResourceNotFoundException: Model use case details not submitted` | Fill out Anthropic use case form in AWS Bedrock Console → Model access |
 | `Invalid agent name` | Use underscores not hyphens: `my_agent` not `my-agent` |
 | Platform mismatch warning (amd64 vs arm64) | Normal - CodeBuild handles cross-platform ARM64 builds automatically |
+| Memory `list_events` returns empty | ~10s eventual consistency delay after `create_event`. Also check actor_id/session_id match |
+| `'list' object has no attribute 'get'` | `list_events` returns list directly, and `event['payload']` is also a list. See memory.md |
+| Container not reading .env | Set env vars in Dockerfile ENV, not .env file (container doesn't load .env) |

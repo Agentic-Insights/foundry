@@ -26,12 +26,8 @@ from bedrock_agentcore.memory import MemoryClient
 
 client = MemoryClient(region_name="us-east-1")
 
-# Create memory
-memory = client.create_memory(
-    name="AgentConversationMemory",
-    description="Conversation history",
-)
-memory_id = memory["id"]
+# Create memory (via CLI is easier)
+# agentcore memory create my_memory -r us-east-1 --wait
 
 # Store conversation event
 client.create_event(
@@ -40,39 +36,63 @@ client.create_event(
     session_id="session-abc",
     messages=[
         ("What's my order status?", "USER"),
-        ("Let me check order #12345...", "ASSISTANT"),
-        ("lookup_order(order_id='12345')", "TOOL"),
         ("Your order shipped yesterday.", "ASSISTANT")
     ]
 )
 
-# Retrieve events
+# Retrieve events - returns LIST directly (not dict with "events" key)
 events = client.list_events(
     memory_id=memory_id,
-    actor_id="user-123",
-    session_id="session-abc"
+    actor_id="user-123",      # REQUIRED
+    session_id="session-abc"  # REQUIRED
 )
+# events = [{'memoryId': '...', 'payload': [...], ...}, ...]
 ```
 
 ### Event Structure
 
-```python
-# Conversational event payload
-{
-    "conversational": {
-        "content": {"text": "Hello"},
-        "role": "USER"  # USER, ASSISTANT, or TOOL
-    }
-}
+**IMPORTANT**: `list_events` returns a list directly. Each event's `payload` is also a LIST of messages.
 
-# Blob event (for checkpoints/binary data)
-{
-    "blob": {
-        "content": base64_encoded_data,
-        "mimeType": "application/json"
-    }
-}
+```python
+# list_events returns:
+[
+    {
+        'memoryId': 'my_memory-abc123',
+        'actorId': 'user-123',
+        'sessionId': 'session-abc',
+        'eventId': '0000001234567890#hash',
+        'eventTimestamp': datetime(...),
+        'payload': [  # <-- LIST of messages, not a dict!
+            {'conversational': {'content': {'text': 'Hello'}, 'role': 'USER'}},
+            {'conversational': {'content': {'text': 'Hi there!'}, 'role': 'ASSISTANT'}}
+        ],
+        'branch': {'name': 'main'}
+    },
+    # ... more events
+]
 ```
+
+### Parsing Events Correctly
+
+```python
+# CORRECT way to parse events
+messages = []
+for event in events:  # events is a list
+    payload_list = event.get("payload", [])  # payload is a LIST
+    for msg in payload_list:
+        if "conversational" in msg:
+            conv = msg["conversational"]
+            role = conv.get("role", "").lower()
+            content = conv.get("content", {}).get("text", "")
+            if role == "user":
+                messages.append({"role": "user", "content": content})
+            elif role == "assistant":
+                messages.append({"role": "assistant", "content": content})
+```
+
+### Eventual Consistency
+
+**CRITICAL**: Events are not immediately available after `create_event`. There's ~10 second eventual consistency delay before events appear in `list_events`. Design your agent to handle this gracefully.
 
 ## Long-Term Memory (LTM)
 
@@ -88,22 +108,28 @@ Automatically extracts and stores insights across sessions.
 
 ## LangGraph + AgentCore Memory
 
-### Pattern: Hybrid Memory
+### Passing Memory ID to Container
 
-Use AgentCore Memory for cross-session facts, LangGraph checkpointing for conversation state.
+Memory ID must be set in the **Dockerfile** ENV, not just .env (container doesn't read .env):
+
+```dockerfile
+ENV AGENTCORE_MEMORY_ID=my_memory-abc123
+```
+
+Or add to your generated Dockerfile at `.bedrock_agentcore/<agent_name>/Dockerfile`.
+
+### Pattern: Full Working Example
 
 ```python
-from langgraph.checkpoint.memory import InMemorySaver
+import os
 from bedrock_agentcore.memory import MemoryClient
 from bedrock_agentcore.runtime import BedrockAgentCoreApp
 
-# AgentCore Memory for long-term facts
-memory_client = MemoryClient(region_name="us-east-1")
-memory_id = "your-memory-id"
-
-# LangGraph checkpointer for conversation state
-checkpointer = InMemorySaver()
-graph = builder.compile(checkpointer=checkpointer)
+# Memory setup at module level
+memory_id = os.getenv("AGENTCORE_MEMORY_ID")
+memory_client = None
+if memory_id:
+    memory_client = MemoryClient(region_name=os.getenv("AWS_REGION", "us-east-1"))
 
 app = BedrockAgentCoreApp()
 
@@ -113,34 +139,45 @@ def invoke(payload, context):
     session_id = payload.get("session_id", "default")
     prompt = payload.get("prompt", "")
 
-    # 1. Load long-term memory
-    user_facts = memory_client.list_events(
-        memory_id=memory_id,
-        actor_id=user_id
-    )
+    # 1. Load conversation history from memory
+    messages = []
+    if memory_client and memory_id:
+        try:
+            events = memory_client.list_events(
+                memory_id=memory_id,
+                actor_id=user_id,
+                session_id=session_id
+            )
+            # Parse events correctly (list of events, each with payload list)
+            for event in events:
+                for msg in event.get("payload", []):
+                    if "conversational" in msg:
+                        conv = msg["conversational"]
+                        role = conv.get("role", "").lower()
+                        content = conv.get("content", {}).get("text", "")
+                        if role in ("user", "assistant"):
+                            messages.append({"role": role, "content": content})
+        except Exception as e:
+            print(f"Error loading memory: {e}")
 
-    # 2. Build context with facts
-    system_context = build_context_from_facts(user_facts)
+    # 2. Add current prompt and invoke graph
+    messages.append({"role": "user", "content": prompt})
+    result = graph.invoke({"messages": messages})
+    response = result["messages"][-1].content
 
-    # 3. Run graph with LangGraph checkpointing
-    config = {"configurable": {"thread_id": f"{user_id}-{session_id}"}}
-    result = graph.invoke(
-        {"messages": [("system", system_context), ("user", prompt)]},
-        config=config
-    )
+    # 3. Save conversation to memory
+    if memory_client and memory_id:
+        try:
+            memory_client.create_event(
+                memory_id=memory_id,
+                actor_id=user_id,
+                session_id=session_id,
+                messages=[(prompt, "USER"), (response, "ASSISTANT")]
+            )
+        except Exception as e:
+            print(f"Error saving memory: {e}")
 
-    # 4. Store conversation to AgentCore Memory
-    memory_client.create_event(
-        memory_id=memory_id,
-        actor_id=user_id,
-        session_id=session_id,
-        messages=[
-            (prompt, "USER"),
-            (result["messages"][-1].content, "ASSISTANT")
-        ]
-    )
-
-    return {"result": result["messages"][-1].content}
+    return {"result": response}
 
 app.run()
 ```
