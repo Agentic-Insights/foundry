@@ -1,6 +1,6 @@
 {
   "name": "aws-agentcore-langgraph",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore. Use for runtime wrapping, memory integration (STM/LTM), Gateway MCP tools, and CLI deployment workflows.",
   "author": {
     "name": "agentic-insights"

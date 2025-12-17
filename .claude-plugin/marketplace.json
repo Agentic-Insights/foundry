@@ -12,12 +12,19 @@
       "name": "aws-agentcore-langgraph",
       "source": ".",
       "description": "Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore with memory, gateway, and runtime integration",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "agentic-insights"
       },
       "category": "cloud",
-      "tags": ["aws", "bedrock", "agentcore", "langgraph", "mcp", "agents"],
+      "tags": [
+        "aws",
+        "bedrock",
+        "agentcore",
+        "langgraph",
+        "mcp",
+        "agents"
+      ],
       "license": "Apache-2.0"
     }
   ]
