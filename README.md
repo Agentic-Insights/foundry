@@ -5,8 +5,8 @@ Claude Code plugin for deploying LangGraph agents on AWS Bedrock AgentCore.
 ## Install Plugin
 
 ```bash
-/plugin marketplace add Agentic-Insights/agentcore-lg
-/plugin install aws-agentcore-langgraph@agentcore-lg-marketplace
+/plugin marketplace add Agentic-Insights/aws-skills-cc
+/plugin install aws-agentcore-langgraph@aws-skills-cc
 ```
 
 The skill auto-activates when working with AgentCore deployments, memory, or gateway integrations.
@@ -26,8 +26,8 @@ The skill auto-activates when working with AgentCore deployments, memory, or gat
 Clone and deploy the example agent:
 
 ```bash
-git clone https://github.com/Agentic-Insights/agentcore-lg.git
-cd agentcore-lg
+git clone https://github.com/Agentic-Insights/aws-skills-cc.git
+cd aws-skills-cc
 uv sync
 
 agentcore configure -e langgraph_agent_web_search.py --region us-east-1
