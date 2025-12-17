@@ -1,47 +1,28 @@
-# AWS AgentCore + LangGraph
+# AWS Skills for Claude Code
 
-Claude Code plugin for deploying LangGraph agents on AWS Bedrock AgentCore.
+Unofficial AWS integration skills for Claude Code.
 
-## Install Plugin
+## Install
 
 ```bash
 /plugin marketplace add Agentic-Insights/aws-skills-cc
 /plugin install aws-agentcore-langgraph@aws-skills-cc
 ```
 
-The skill auto-activates when working with AgentCore deployments, memory, or gateway integrations.
+## Skills
 
-## What's Included
+### aws-agentcore-langgraph
+
+Deploy LangGraph agents on AWS Bedrock AgentCore.
 
 | Reference | Coverage |
 |-----------|----------|
-| `agentcore-runtime.md` | BedrockAgentCoreApp wrapper, streaming, async |
-| `agentcore-memory.md` | STM/LTM patterns, env vars, session management |
-| `agentcore-gateway.md` | Lambda/OpenAPI/MCP → unified MCP tools |
-| `agentcore-cli.md` | All primitives, AWS CLI commands |
-| `langgraph-patterns.md` | StateGraph, checkpointing, tools |
-
-## For Developers
-
-Clone and deploy the example agent:
-
-```bash
-git clone https://github.com/Agentic-Insights/aws-skills-cc.git
-cd aws-skills-cc
-uv sync
-
-agentcore configure -e langgraph_agent_web_search.py --region us-east-1
-agentcore launch
-agentcore invoke '{"prompt": "What are the latest AI news?"}'
-agentcore destroy
-```
-
-## Requirements
-
-- Python 3.11+
-- AWS account with Bedrock model access
-- [uv](https://github.com/astral-sh/uv) package manager
+| `agentcore-runtime.md` | BedrockAgentCoreApp, streaming, async |
+| `agentcore-memory.md` | STM/LTM, env vars, sessions |
+| `agentcore-gateway.md` | Lambda/OpenAPI/MCP tools |
+| `agentcore-cli.md` | All primitives, AWS CLI |
+| `langgraph-patterns.md` | StateGraph, checkpointing |
 
 ## License
 
-Apache 2.0 - See [LICENSE](LICENSE)
+Apache 2.0
