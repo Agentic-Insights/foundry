@@ -23,6 +23,10 @@ Deploy LangGraph agents on AWS Bedrock AgentCore.
 | `agentcore-cli.md` | All primitives, AWS CLI |
 | `langgraph-patterns.md` | StateGraph, checkpointing |
 
+## Examples
+
+Working agent implementations in `examples/` for developers who clone this repo.
+
 ## License
 
 Apache 2.0
