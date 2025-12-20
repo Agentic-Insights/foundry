@@ -17,3 +17,11 @@ uv.lock
 
 # Claude Code
 .claude/settings.local.json
+
+# Node.js (if any tooling uses it)
+node_modules/
+package-lock.json
+package.json
+
+# BAML generated
+baml_client/
