@@ -1,0 +1,15 @@
+[project]
+name = "browser-demo"
+version = "0.1.0"
+description = "AWS Bedrock AgentCore Browser demonstration"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "bedrock-agentcore>=1.0.7",
+    "boto3>=1.35.0",
+    "playwright>=1.40.0",
+    "python-dotenv>=1.2.1",
+]
+
+[project.scripts]
+install-browser = "playwright install chromium"
