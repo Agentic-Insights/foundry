@@ -6,6 +6,28 @@ A curated collection of production-ready plugins for building and deploying AI s
 
 ## Available Plugins
 
+### [build-agent-skills](./plugins/build-agent-skills/) 🆕
+
+Build skills with the **[Agent Skills](https://agentskills.io)** open standard - create, validate, and publish portable skills for AI agents across Claude Code, Cursor, GitHub Copilot, and more.
+
+**Key Features:**
+- Complete Agent Skills specification guide
+- Validation workflow with `skills-ref` tool
+- Cross-platform compatibility guidance
+- Real-world examples and templates
+- Best practices for skill development
+
+**Use Cases:**
+- Creating new skills following the open standard
+- Validating skills for compliance
+- Converting documentation into portable skills
+- Publishing skills to marketplaces
+- Ensuring cross-platform compatibility
+
+[View Documentation →](./plugins/build-agent-skills/)
+
+---
+
 ### [aws-agentcore-langgraph](./plugins/aws-agentcore-langgraph/)
 
 Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore with production-ready infrastructure.
@@ -40,8 +62,9 @@ Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore with production-ready infra
 
 ## Plugin Categories
 
-- **Infrastructure & Deployment** - AWS, cloud infrastructure, DevOps patterns
-- **AI Engineering** - LangGraph, RAG, agentic workflows (coming soon)
+- **Agent Development** - Agent Skills standard, skill creation and validation
+- **Infrastructure & Deployment** - AWS Bedrock, cloud infrastructure, DevOps patterns
+- **AI Engineering** - LangGraph, RAG, agentic workflows
 - **Consulting Workflows** - Fractional CTO tools and patterns (coming soon)
 
 ## About Agentic Insights
@@ -70,9 +93,10 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guideline
 Individual plugins may have different licenses. See each plugin's directory for details.
 
 - Marketplace infrastructure: MIT
+- build-agent-skills: Apache-2.0
 - aws-agentcore-langgraph: Apache-2.0
 
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/Agentic-Insights/claude-plugins-marketplace/issues)
-- **Consulting**: [Contact Agentic Insights](https://agenticinsights.com/contact)
+- **Consulting**: [Book a consultation](https://calendar.app.google/mR44LvVuK46PT5nK9) or visit [agenticinsights.com](https://agenticinsights.com)

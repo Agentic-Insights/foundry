@@ -117,14 +117,49 @@ Use these Claude Code skills when developing plugins:
 - `plugin-dev:plugin-validator` - Validate plugin structure
 - `superpowers:writing-skills` - Create skills following best practices
 
+## Skill Validation
+
+### Agent Skills Open Standard
+
+All skills in this repository follow the **[Agent Skills](https://agentskills.io)** open standard - an interoperable format for packaging AI agent capabilities supported by Claude Code, Cursor, GitHub Copilot, and more.
+
+**For comprehensive guidance on creating and validating skills**, use the `build-agent-skills` plugin included in this marketplace:
+
+```bash
+# The build-agent-skills plugin provides:
+# - Complete Agent Skills specification documentation
+# - Validation workflow with skills-ref tool
+# - Best practices for skill development
+# - Cross-platform compatibility guidance
+# - Real-world examples and templates
+```
+
+See [plugins/build-agent-skills/](plugins/build-agent-skills/) for complete documentation.
+
+### Quick Validation
+
+Validate any skill using `uvx`:
+
+```bash
+# Validate skill structure
+uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref \
+  skills-ref validate path/to/skill
+
+# Convenience alias
+alias skills-ref='uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref skills-ref'
+```
+
+**Important**: Always validate skills before committing to ensure compliance with the [Agent Skills specification](https://agentskills.io/specification).
+
 ## Testing Locally
 
 Before pushing changes:
 
-1. Test plugin installation locally
-2. Verify skill descriptions are clear
-3. Run through examples in documentation
-4. Check that all links work
+1. **Validate skills** - Run `skills-ref validate` on all modified skills
+2. Test plugin installation locally
+3. Verify skill descriptions are clear
+4. Run through examples in documentation
+5. Check that all links work
 
 ## Git Workflow
 
