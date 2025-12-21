@@ -1,0 +1,21 @@
+{
+  "name": "vhs-recorder",
+  "version": "1.0.0",
+  "description": "Professional terminal recording with Charm's VHS - comprehensive guidance for creating polished CLI demonstrations, tutorials, and documentation videos",
+  "keywords": [
+    "vhs",
+    "terminal",
+    "recording",
+    "screencast",
+    "demo",
+    "cli",
+    "documentation",
+    "tutorial",
+    "gif",
+    "video",
+    "charmbracelet"
+  ],
+  "author": "agentic-insights",
+  "license": "MIT",
+  "repository": "https://github.com/Agentic-Insights/claude-plugins-marketplace"
+}

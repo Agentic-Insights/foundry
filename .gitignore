@@ -15,8 +15,8 @@ uv.lock
 .bedrock_agentcore.yaml
 .bedrock_agentcore/
 
-# Claude Code
-.claude/settings.local.json
+# Claude Code (ignore entire directory - users manage locally)
+.claude/
 
 # Node.js (if any tooling uses it)
 node_modules/
