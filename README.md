@@ -6,16 +6,8 @@ A curated collection of production-ready plugins for building and deploying AI s
 
 ## Installation
 
-### Add the Marketplace
-
 ```bash
 /plugin marketplace add Agentic-Insights/claude-plugins-marketplace
-```
-
-### Install a Plugin
-
-```bash
-/plugin install aws-agentcore-langgraph@agentic-insights
 ```
 
 ## Available Plugins
@@ -31,10 +23,10 @@ Build skills with the **[Agent Skills](https://agentskills.io)** open standard -
 <details>
 <summary><strong>What's included</strong></summary>
 
-**Skill:**
+**🔌 Skill:**
 - `working-with-agent-skills` - Create, validate, and publish Agent Skills following the official open standard
 
-**CLI Commands:**
+**⚡ CLI Commands:**
 - `skills-ref validate` - Validate skill structure and metadata
 - `skills-ref inspect` - Inspect skill details
 
@@ -55,10 +47,10 @@ Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore with production-ready infra
 <details>
 <summary><strong>What's included</strong></summary>
 
-**Skill:**
+**🔌 Skill:**
 - `aws-agentcore-langgraph` - Deploy LangGraph agents with AgentCore runtime, memory, and Gateway integration
 
-**CLI Commands:**
+**⚡ CLI Commands:**
 - `agentcore configure` - Configure agent deployment
 - `agentcore launch` - Deploy agent to AWS
 - `agentcore invoke` - Test agent invocation
