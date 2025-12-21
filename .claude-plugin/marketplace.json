@@ -12,7 +12,7 @@
       "name": "build-agent-skills",
       "source": "./",
       "description": "Build skills with the Agent Skills open standard - create, validate, and publish portable skills for AI agents",
-      "version": "1.0.0",
+      "version": "2.2.0",
       "author": {
         "name": "agentic-insights"
       },

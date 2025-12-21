@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/Agentic-Insights/claude-plugins-marketplace/compare/v2.1.0...v2.2.0) (2025-12-21)
+
+
+### Features
+
+* add build-agent-skills to marketplace and streamline plugin listings ([495bdaa](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/495bdaac0fa3e5765b68f394a7315d449926284e))
+
 ## [2.1.0](https://github.com/Agentic-Insights/claude-plugins-marketplace/compare/v2.0.0...v2.1.0) (2025-12-21)
 
 
