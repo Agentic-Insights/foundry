@@ -1,13 +1,32 @@
 {
-  "name": "aws-skills-cc",
+  "name": "agentic-insights-marketplace",
   "owner": {
     "name": "agentic-insights"
   },
   "metadata": {
-    "description": "AWS Bedrock AgentCore + LangGraph integration skills and patterns",
-    "version": "1.0.0"
+    "description": "Professional Claude Code plugins for AI engineering excellence",
+    "version": "2.1.0"
   },
   "plugins": [
+    {
+      "name": "build-agent-skills",
+      "source": "./",
+      "description": "Build skills with the Agent Skills open standard - create, validate, and publish portable skills for AI agents",
+      "version": "1.0.0",
+      "author": {
+        "name": "agentic-insights"
+      },
+      "category": "development",
+      "tags": [
+        "agent-skills",
+        "skills",
+        "open-standard",
+        "validation",
+        "interoperability",
+        "skill-development"
+      ],
+      "license": "Apache-2.0"
+    },
     {
       "name": "aws-agentcore-langgraph",
       "source": "./",

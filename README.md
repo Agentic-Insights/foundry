@@ -24,27 +24,19 @@ A curated collection of production-ready plugins for building and deploying AI s
 
 Build skills with the **[Agent Skills](https://agentskills.io)** open standard - create, validate, and publish portable skills for AI agents across Claude Code, Cursor, GitHub Copilot, and more.
 
+```bash
+/plugin install build-agent-skills@agentic-insights
+```
+
 <details>
-<summary><strong>Skills & Features</strong></summary>
+<summary><strong>What's included</strong></summary>
 
-**Skills:**
-- `create-skill` - Generate new Agent Skills from scratch
-- `validate-skill` - Validate skill structure and compliance
-- `convert-docs-to-skill` - Convert documentation into skills
+**Skill:**
+- `working-with-agent-skills` - Create, validate, and publish Agent Skills following the official open standard
 
-**Key Features:**
-- Complete Agent Skills specification guide
-- Validation workflow with `skills-ref` tool
-- Cross-platform compatibility guidance
-- Real-world examples and templates
-- Best practices for skill development
-
-**Use Cases:**
-- Creating new skills following the open standard
-- Validating skills for compliance
-- Converting documentation into portable skills
-- Publishing skills to marketplaces
-- Ensuring cross-platform compatibility
+**CLI Commands:**
+- `skills-ref validate` - Validate skill structure and metadata
+- `skills-ref inspect` - Inspect skill details
 
 </details>
 
@@ -56,26 +48,21 @@ Build skills with the **[Agent Skills](https://agentskills.io)** open standard -
 
 Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore with production-ready infrastructure.
 
+```bash
+/plugin install aws-agentcore-langgraph@agentic-insights
+```
+
 <details>
-<summary><strong>Skills & Features</strong></summary>
+<summary><strong>What's included</strong></summary>
 
-**Skills:**
-- `setup-project` - Initialize new AgentCore project
-- `deploy-agent` - Deploy LangGraph agents to AWS
-- `add-memory` - Integrate persistent memory
-- `connect-tools` - Connect Gateway MCP tools
+**Skill:**
+- `aws-agentcore-langgraph` - Deploy LangGraph agents with AgentCore runtime, memory, and Gateway integration
 
-**Key Features:**
-- Runtime wrapping for StateGraph deployment
-- Persistent memory integration (STM/LTM)
-- Gateway MCP tool connections
-- Streamlined CLI deployment workflow
-
-**Use Cases:**
-- Deploying stateful LangGraph agents to AWS
-- Adding persistent memory to conversational agents
-- Connecting agents to external tools and APIs
-- Managing production agent infrastructure
+**CLI Commands:**
+- `agentcore configure` - Configure agent deployment
+- `agentcore launch` - Deploy agent to AWS
+- `agentcore invoke` - Test agent invocation
+- `agentcore destroy` - Clean up resources
 
 </details>
 
