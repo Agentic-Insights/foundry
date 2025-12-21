@@ -1,21 +1,20 @@
 {
-  "name": "aws-agentcore-langgraph",
-  "version": "1.0.2",
-  "description": "Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore. Use for runtime wrapping, memory integration (STM/LTM), Gateway MCP tools, and CLI deployment workflows.",
+  "name": "claude-plugins-marketplace",
+  "version": "1.0.0",
+  "description": "Professional Claude Code plugins for AI engineering consulting - production-ready patterns from real engagements",
   "author": {
     "name": "agentic-insights"
   },
-  "repository": "https://github.com/Agentic-Insights/aws-skills-cc",
-  "license": "Apache-2.0",
+  "repository": "https://github.com/Agentic-Insights/claude-plugins-marketplace",
+  "license": "MIT",
   "keywords": [
+    "marketplace",
+    "plugins",
+    "ai-engineering",
+    "consulting",
     "aws",
-    "bedrock",
-    "agentcore",
     "langgraph",
-    "mcp",
-    "gateway",
-    "memory",
-    "agents"
+    "infrastructure"
   ],
   "commands": [],
   "agents": [],

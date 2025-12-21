@@ -1,44 +1,142 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working with the Agentic Insights Plugin Marketplace.
+
+## Project Overview
+
+A professional Claude Code plugin marketplace for Agentic Insights consulting. This repository contains production-ready plugins that serve three purposes:
+1. **Lead generation** - Showcase AI engineering expertise to potential clients
+2. **Client enablement** - Tools and patterns for post-engagement momentum
+3. **Product-ized solutions** - Repeatable consulting patterns encoded as plugins
 
 ## Repository Structure
 
 ```
-aws-skills-cc/
-├── .claude-plugin/          # Plugin manifests for Claude Code
-├── skills/                  # Skills distributed via plugin
-│   └── aws-agentcore-langgraph/
-│       ├── SKILL.md
-│       ├── reference/       # AgentCore and LangGraph docs
-│       └── scripts/         # Utility scripts
-├── examples/                # Working examples (for developers who clone)
-│   └── langgraph-web-search/
-└── README.md
+claude-plugins-marketplace/
+├── plugins/
+│   └── aws-agentcore-langgraph/    # Individual plugin directories
+│       ├── .claude-plugin/
+│       │   └── plugin.json
+│       ├── README.md
+│       ├── CHANGELOG.md
+│       ├── LICENSE
+│       ├── skills/
+│       ├── examples/
+│       └── recordings/
+├── README.md                        # Marketplace landing page
+├── CLAUDE.md                        # This file
+├── CONTRIBUTING.md                  # Contribution guidelines
+└── .github/
+    └── workflows/
+        └── release.yml              # Semantic release automation
 ```
 
-## Plugin Development
+## Plugin Development Standards
 
-This repo is a Claude Code plugin marketplace. The skill at `skills/aws-agentcore-langgraph/` documents AWS Bedrock AgentCore + LangGraph integration patterns.
+### Quality Requirements
 
-## Working with Examples
+- All skills must have clear descriptions and use cases
+- Follow superpowers plugin patterns for structure
+- Include comprehensive README with examples
+- Test skills with real scenarios before publishing
+- Use conventional commits for semantic versioning
 
+### Skill Structure
+
+Each skill in a plugin should follow this pattern:
+
+```
+skills/
+└── plugin-name/
+    └── skill-name/
+        ├── SKILL.md       # Complete documentation
+        └── prompt.md      # Optional: additional context
+```
+
+### Plugin Metadata (plugin.json)
+
+Each plugin must include:
+- Accurate description (appears in marketplace)
+- Relevant keywords for discoverability
+- Repository URL (github.com/Agentic-Insights/claude-plugins-marketplace)
+- Author: agentic-insights or killerapp
+- Appropriate license (Apache-2.0 for corporate-friendly, MIT otherwise)
+
+### Target Audience
+
+Write documentation for three audiences:
+1. **Potential clients** - Clear value proposition, professional tone
+2. **Current/past clients** - Practical implementation guidance
+3. **Development teams** - Technical details and integration patterns
+
+## Development Workflow
+
+### Adding New Plugins
+
+1. Create plugin directory in `plugins/<plugin-name>/`
+2. Add `.claude-plugin/plugin.json` with metadata
+3. Create comprehensive README.md
+4. Add skills, examples, documentation
+5. Update root README.md with plugin listing
+6. Test locally before pushing
+
+### Versioning
+
+- Use semantic versioning (MAJOR.MINOR.PATCH)
+- Each plugin tracks its own version independently
+- Marketplace infrastructure has separate versioning
+- Automated releases via semantic-release on conventional commits
+
+### Commit Messages
+
+Follow conventional commits:
+- `feat:` - New features (minor version bump)
+- `fix:` - Bug fixes (patch version bump)
+- `docs:` - Documentation (no version bump)
+- `chore:` - Maintenance (no version bump)
+
+Example:
 ```bash
-cd examples/langgraph-web-search
-cp .env.example .env
-uv sync
-uv run python agent.py
+git commit -m "feat(aws-agentcore): add memory persistence skill"
+git commit -m "fix(aws-agentcore): correct CLI invocation pattern"
+git commit -m "docs: update marketplace installation instructions"
 ```
 
-## Key Files
+## Plugin Lifecycle
 
-- `.claude-plugin/plugin.json` - Plugin manifest
-- `.claude-plugin/marketplace.json` - Marketplace definition
-- `skills/aws-agentcore-langgraph/SKILL.md` - Main skill entry point
+1. **Alpha** - Private/client-specific, not in marketplace
+2. **Beta** - In marketplace, marked as beta in description
+3. **Stable** - Production-ready, documented, tested
+4. **Deprecated** - Marked but still available
 
-## Releases
+## Available Tools
 
-Releases are automated via release-please. Use [Conventional Commits](https://www.conventionalcommits.org/):
-- `fix:` for bug fixes (patch version bump)
-- `feat:` for new features (minor version bump)
-- `feat!:` or `BREAKING CHANGE:` for breaking changes (major version bump)
+Use these Claude Code skills when developing plugins:
+- `plugin-dev:create-plugin` - Guided plugin creation
+- `plugin-dev:skill-reviewer` - Quality review for skills
+- `plugin-dev:plugin-validator` - Validate plugin structure
+- `superpowers:writing-skills` - Create skills following best practices
+
+## Testing Locally
+
+Before pushing changes:
+
+1. Test plugin installation locally
+2. Verify skill descriptions are clear
+3. Run through examples in documentation
+4. Check that all links work
+
+## Git Workflow
+
+- Work on feature branches
+- Use conventional commits
+- Push to GitHub
+- Semantic release handles versioning automatically
+- Tag releases for individual plugins as needed
+
+## Brand Guidelines
+
+- Professional, technical tone
+- Focus on practical value and real-world usage
+- Reference agenticinsights.com appropriately
+- Highlight consulting expertise without overselling
