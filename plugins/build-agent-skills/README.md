@@ -35,7 +35,6 @@ Install this plugin in Claude Code:
 # Clone the marketplace repository
 git clone https://github.com/Agentic-Insights/claude-plugins-marketplace.git
 
-# Link the agent-skills plugin
 # Link the build-agent-skills plugin
 cd claude-plugins-marketplace
 claude-code plugins link plugins/build-agent-skills
@@ -46,9 +45,10 @@ claude-code plugins list
 
 ## Skills Included
 
-### 1. `working-with-agent-skills`
+<details>
+<summary><strong>📚 working-with-agent-skills</strong> - Comprehensive guide for creating, validating, and publishing Agent Skills</summary>
 
-Comprehensive guide for creating, validating, and publishing Agent Skills following the official specification.
+<br>
 
 **Use this skill when**:
 - Creating new skills from scratch
@@ -67,6 +67,8 @@ Comprehensive guide for creating, validating, and publishing Agent Skills follow
 - Complete skill creation workflow
 - Cross-platform compatibility testing
 - Real-world examples (database migrations, AWS Lambda deployment)
+
+</details>
 
 ## Quick Start: Creating Your First Skill
 
