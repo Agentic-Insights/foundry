@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.0.0](https://github.com/Agentic-Insights/claude-plugins-marketplace/compare/v1.0.2...v2.0.0) (2025-12-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Repository restructured as multi-plugin marketplace
+
+### Features
+
+* add AgentCore Memory demo example ([24e589b](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/24e589b0a956db90bb2cf7de3e22f0a463b6da66)), closes [#8](https://github.com/Agentic-Insights/claude-plugins-marketplace/issues/8)
+* add AgentCore primitive demos for Gateway, Browser, Code Interpreter, and Guardrails ([9bb866c](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/9bb866cd56e0213fccc3e5e5fa7ef95361156e0f))
+* add BAML extraction example for type-safe LLM parsing ([6945f9b](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/6945f9bb9f2037caa5293678e6b437ffa08b3163))
+* add Policy, Runtime demos and Deep Research Agent ([98a468e](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/98a468e80b8b1b9ea9ac6a11c115762e9ede6d24))
+* add VHS terminal recording infrastructure ([7ebf073](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/7ebf0732dab8670337332b5e53bd0e3344388e7d))
+* transform aws-skills-cc into claude-plugins-marketplace ([3b17f2f](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/3b17f2f2e3683a51f4cbc28691625a83cc908408))
+* update VHS tapes for clean, live recordings ([ba6df75](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/ba6df75f1635cfd46fa808d8736069ffc6649582))
+
+
+### Bug Fixes
+
+* use ddgs package for DuckDuckGo search ([95e784d](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/95e784dac2e28b83162f610a1c75243d6f6ed2fd))
+
 ## [1.0.2](https://github.com/Agentic-Insights/aws-skills-cc/compare/v1.0.1...v1.0.2) (2025-12-17)
 
 
