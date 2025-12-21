@@ -12,7 +12,7 @@
       "name": "aws-agentcore-langgraph",
       "source": "./",
       "description": "Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore with memory, gateway, and runtime integration",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "author": {
         "name": "agentic-insights"
       },

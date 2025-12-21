@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/Agentic-Insights/claude-plugins-marketplace/compare/v2.0.0...v2.1.0) (2025-12-21)
+
+
+### Features
+
+* **build-agent-skills:** add Agent Skills open standard plugin ([39b481c](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/39b481cf6292c474eb04268fd89ca5ea93fabe67))
+
 ## [2.0.0](https://github.com/Agentic-Insights/claude-plugins-marketplace/compare/v1.0.2...v2.0.0) (2025-12-21)
 
 
