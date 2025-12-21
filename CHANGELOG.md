@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/Agentic-Insights/claude-plugins-marketplace/compare/v2.2.0...v2.3.0) (2025-12-21)
+
+
+### Features
+
+* **plugins:** add para-pkm plugin for PARA knowledge management ([b5bce00](https://github.com/Agentic-Insights/claude-plugins-marketplace/commit/b5bce004f2c0b17819579b0e98f7e97fe6688138))
+
 ## [2.2.0](https://github.com/Agentic-Insights/claude-plugins-marketplace/compare/v2.1.0...v2.2.0) (2025-12-21)
 
 
