@@ -4,11 +4,33 @@
 
 A curated collection of production-ready plugins for building and deploying AI systems, developed through real-world consulting engagements.
 
+## Installation
+
+### Add the Marketplace
+
+```bash
+/plugin marketplace add Agentic-Insights/claude-plugins-marketplace
+```
+
+### Install a Plugin
+
+```bash
+/plugin install aws-agentcore-langgraph@agentic-insights
+```
+
 ## Available Plugins
 
 ### [build-agent-skills](./plugins/build-agent-skills/) 🆕
 
 Build skills with the **[Agent Skills](https://agentskills.io)** open standard - create, validate, and publish portable skills for AI agents across Claude Code, Cursor, GitHub Copilot, and more.
+
+<details>
+<summary><strong>Skills & Features</strong></summary>
+
+**Skills:**
+- `create-skill` - Generate new Agent Skills from scratch
+- `validate-skill` - Validate skill structure and compliance
+- `convert-docs-to-skill` - Convert documentation into skills
 
 **Key Features:**
 - Complete Agent Skills specification guide
@@ -24,6 +46,8 @@ Build skills with the **[Agent Skills](https://agentskills.io)** open standard -
 - Publishing skills to marketplaces
 - Ensuring cross-platform compatibility
 
+</details>
+
 [View Documentation →](./plugins/build-agent-skills/)
 
 ---
@@ -31,6 +55,15 @@ Build skills with the **[Agent Skills](https://agentskills.io)** open standard -
 ### [aws-agentcore-langgraph](./plugins/aws-agentcore-langgraph/)
 
 Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore with production-ready infrastructure.
+
+<details>
+<summary><strong>Skills & Features</strong></summary>
+
+**Skills:**
+- `setup-project` - Initialize new AgentCore project
+- `deploy-agent` - Deploy LangGraph agents to AWS
+- `add-memory` - Integrate persistent memory
+- `connect-tools` - Connect Gateway MCP tools
 
 **Key Features:**
 - Runtime wrapping for StateGraph deployment
@@ -44,21 +77,9 @@ Deploy LangGraph 1.0 agents on AWS Bedrock AgentCore with production-ready infra
 - Connecting agents to external tools and APIs
 - Managing production agent infrastructure
 
+</details>
+
 [View Documentation →](./plugins/aws-agentcore-langgraph/)
-
-## Installation
-
-### Add the Marketplace
-
-```bash
-/plugin marketplace add Agentic-Insights/claude-plugins-marketplace
-```
-
-### Install a Plugin
-
-```bash
-/plugin install aws-agentcore-langgraph@agentic-insights
-```
 
 ## Plugin Categories
 
