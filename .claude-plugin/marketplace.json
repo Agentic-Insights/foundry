@@ -67,6 +67,45 @@
         "multimodal"
       ],
       "license": "Apache-2.0"
+    },
+    {
+      "name": "para-pkm",
+      "source": "./plugins/para-pkm",
+      "description": "Manage PARA-based personal knowledge management (PKM) systems using Projects, Areas, Resources, and Archives organization method",
+      "version": "1.0.0",
+      "author": {
+        "name": "agentic-insights"
+      },
+      "category": "productivity",
+      "tags": [
+        "pkm",
+        "para",
+        "personal-knowledge-management",
+        "organization",
+        "productivity",
+        "knowledge-base"
+      ],
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "vhs-recorder",
+      "source": "./plugins/vhs-recorder",
+      "description": "Professional terminal recording with Charm's VHS - comprehensive guidance for creating polished CLI demonstrations, tutorials, and documentation videos",
+      "version": "1.0.0",
+      "author": {
+        "name": "agentic-insights"
+      },
+      "category": "developer-tools",
+      "tags": [
+        "vhs",
+        "terminal",
+        "recording",
+        "screencast",
+        "demo",
+        "cli",
+        "documentation"
+      ],
+      "license": "MIT"
     }
   ]
 }
