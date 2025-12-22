@@ -63,13 +63,13 @@ agentcore destroy
 
 ```
 Need persistent memory across sessions?
-├── Yes → Use AgentCore Memory (reference/agentcore-memory.md)
+├── Yes → Use AgentCore Memory (references/agentcore-memory.md)
 │         - STM: turn-by-turn within session
 │         - LTM: insights across sessions/agents
 └── No → Use LangGraph checkpointing only
 
 Need external API tools?
-├── Yes → Use AgentCore Gateway (reference/agentcore-gateway.md)
+├── Yes → Use AgentCore Gateway (references/agentcore-gateway.md)
 │         - Lambda → MCP tools (custom code, DB queries)
 │         - OpenAPI → MCP tools (REST APIs)
 │         - MCP Server → Unite existing MCPs (Nov 2025)
@@ -77,7 +77,7 @@ Need external API tools?
 └── No → Use LangGraph tools directly
 
 Complex multi-step workflow?
-├── Yes → Review LangGraph patterns (reference/langgraph-patterns.md)
+├── Yes → Review LangGraph patterns (references/langgraph-patterns.md)
 └── No → Use quick start above
 ```
 
@@ -94,11 +94,11 @@ Complex multi-step workflow?
 
 ## Reference Files
 
-- **AgentCore CLI**: See [reference/agentcore-cli.md](reference/agentcore-cli.md) for all primitives + AWS CLI commands
-- **AgentCore Runtime**: See [reference/agentcore-runtime.md](reference/agentcore-runtime.md) for streaming, async, tools examples
-- **AgentCore Memory**: See [reference/agentcore-memory.md](reference/agentcore-memory.md) for STM/LTM patterns + env vars
-- **AgentCore Gateway**: See [reference/agentcore-gateway.md](reference/agentcore-gateway.md) for MCP tool integration
-- **LangGraph Patterns**: See [reference/langgraph-patterns.md](reference/langgraph-patterns.md) for StateGraph best practices
+- **AgentCore CLI**: See [references/agentcore-cli.md](references/agentcore-cli.md) for all primitives + AWS CLI commands
+- **AgentCore Runtime**: See [references/agentcore-runtime.md](references/agentcore-runtime.md) for streaming, async, tools examples
+- **AgentCore Memory**: See [references/agentcore-memory.md](references/agentcore-memory.md) for STM/LTM patterns + env vars
+- **AgentCore Gateway**: See [references/agentcore-gateway.md](references/agentcore-gateway.md) for MCP tool integration
+- **LangGraph Patterns**: See [references/langgraph-patterns.md](references/langgraph-patterns.md) for StateGraph best practices
 
 ## Utility Scripts
 

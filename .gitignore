@@ -28,3 +28,6 @@ baml_client/
 
 # VHS recordings (rendered GIFs/MP4s)
 recordings/
+
+# VHS generated tape files (contain user-specific paths)
+**/tapes/live-*.tape

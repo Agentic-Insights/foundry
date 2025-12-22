@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "session_id": null,
+  "created": "2025-01-25T00:00:00Z",
+  "ttl_seconds": 900,
+  "max_size": 100,
+  "eviction_policy": "LRU",
+  "queries": {},
+  "statistics": {
+    "total_queries": 0,
+    "cache_hits": 0,
+    "cache_misses": 0,
+    "hit_rate": 0.0,
+    "avg_query_time_ms": 0
+  }
+}

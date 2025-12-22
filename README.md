@@ -4,6 +4,8 @@
 
 A curated collection of production-ready plugins for building and deploying AI systems, developed through real-world consulting engagements.
 
+![AWS AgentCore + LangGraph Demo](./plugins/aws-agentcore-langgraph/recordings/live-memory.gif)
+
 ## Claude Code Installation
 
 ```bash
@@ -61,6 +63,46 @@ Build skills with the **[Agent Skills](https://agentskills.io)** open standard -
 </details>
 
 [View Documentation →](./plugins/build-agent-skills/)
+
+---
+
+### [baml](./plugins/baml/) 🆕
+
+Production-ready BAML plugin for type-safe LLM extraction - generates BAML code from requirements, designs schemas, runs tests, debugs issues. Includes LangGraph integration patterns and MCP-powered code generation.
+
+**Skill Installation (Claude Code):**
+```bash
+/plugin install baml@agentic-insights
+```
+
+<details>
+<summary><strong>What's included</strong></summary>
+
+**🔌 Skills:**
+- `baml-codegen` - MCP-powered code generation from natural language requirements
+- `baml-implementation` - Core BAML implementation patterns and best practices
+- `baml-philosophy` - Design principles and architectural guidance
+
+**🤖 Agents:**
+- `baml-architect` - Schema design and architecture planning
+- `baml-debugger` - Debug BAML validation errors
+- `baml-tester` - Test generation and validation
+
+**⚡ Commands:**
+- `/baml-init` - Initialize new BAML projects
+- `/baml-schema` - Schema design assistance
+- `/baml-test` - Run and validate tests
+- `/baml-diagnose` - Troubleshoot common issues
+
+**📋 Requirements:**
+- MCP server: `baml_Docs` (required)
+- MCP server: `baml_Examples` (optional)
+
+</details>
+
+[View Documentation →](./plugins/baml/)
+
+**Credits:** Original implementation by [Fry](https://github.com/FryrAI)
 
 ---
 
@@ -125,6 +167,8 @@ Individual plugins may have different licenses. See each plugin's directory for 
 - Marketplace infrastructure: MIT
 - build-agent-skills: Apache-2.0
 - aws-agentcore-langgraph: Apache-2.0
+- baml: Apache-2.0
+- para-pkm: MIT
 - vhs-recorder: MIT
 
 ## Support

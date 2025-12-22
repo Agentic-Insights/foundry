@@ -8,7 +8,9 @@
 
 set -e
 
-PROJECT_DIR="/home/vaskin/projects/agentcore-lg"
+# Detect project directory (works for any user)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 RECORDINGS_DIR="$PROJECT_DIR/recordings"
 TAPES_DIR="$PROJECT_DIR/tapes"
 
@@ -55,10 +57,10 @@ EOF
 record_hero() {
     echo -e "${BLUE}Recording: Hero Demo (Invoke Live Agent)${NC}"
 
-    local script='
-Env AWS_PROFILE "ag"
+    local script="
+Env AWS_PROFILE \"ag\"
 
-Type "cd /home/vaskin/projects/agentcore-lg/examples/langgraph-web-search"
+Type \"cd $PROJECT_DIR/examples/langgraph-web-search\"
 Enter
 Sleep 500ms
 
@@ -86,7 +88,7 @@ record_memory() {
     echo -e "${BLUE}Recording: Memory Demo${NC}"
 
     local script='
-Type "cd /home/vaskin/projects/agentcore-lg/examples/memory-demo"
+Type "cd $PROJECT_DIR/examples/memory-demo"
 Enter
 Sleep 500ms
 
@@ -109,7 +111,7 @@ record_browser() {
     echo -e "${BLUE}Recording: Browser Demo${NC}"
 
     local script='
-Type "cd /home/vaskin/projects/agentcore-lg/examples/browser-demo"
+Type "cd $PROJECT_DIR/examples/browser-demo"
 Enter
 Sleep 500ms
 
@@ -128,7 +130,7 @@ record_code_interpreter() {
     echo -e "${BLUE}Recording: Code Interpreter Demo${NC}"
 
     local script='
-Type "cd /home/vaskin/projects/agentcore-lg/examples/code-interpreter-demo"
+Type "cd $PROJECT_DIR/examples/code-interpreter-demo"
 Enter
 Sleep 500ms
 
@@ -147,7 +149,7 @@ record_guardrails() {
     echo -e "${BLUE}Recording: Guardrails Demo${NC}"
 
     local script='
-Type "cd /home/vaskin/projects/agentcore-lg/examples/guardrails-demo"
+Type "cd $PROJECT_DIR/examples/guardrails-demo"
 Enter
 Sleep 500ms
 
@@ -166,7 +168,7 @@ record_deep_research() {
     echo -e "${BLUE}Recording: Deep Research Agent${NC}"
 
     local script='
-Type "cd /home/vaskin/projects/agentcore-lg/examples/deep-research-agent"
+Type "cd $PROJECT_DIR/examples/deep-research-agent"
 Enter
 Sleep 500ms
 
@@ -197,7 +199,7 @@ record_overview() {
     echo -e "${BLUE}Recording: Overview${NC}"
 
     local script='
-Type "cd /home/vaskin/projects/agentcore-lg"
+Type "cd $PROJECT_DIR"
 Enter
 Sleep 500ms
 

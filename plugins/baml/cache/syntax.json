@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "baml_version": null,
+  "last_updated": "2025-01-25T00:00:00Z",
+  "core_types": {
+    "primitives": ["string", "int", "float", "bool", "null"],
+    "collections": ["array", "map"],
+    "modifiers": ["optional (?)", "nullable (?)"]
+  },
+  "syntax_rules": {
+    "class": {
+      "structure": "class Name { field type }",
+      "attributes": ["@alias", "@description", "@@dynamic"]
+    },
+    "enum": {
+      "structure": "enum Name { Value1 Value2 }",
+      "attributes": ["@alias", "@description", "@skip", "@@dynamic"]
+    },
+    "function": {
+      "structure": "function Name(params) -> Type { client Model prompt #\"...\"# }",
+      "special_vars": ["ctx.output_format", "ctx.client", "_.role"]
+    },
+    "client": {
+      "structure": "client Name { provider \"...\" options { model \"...\" } }",
+      "providers": ["openai", "anthropic", "gemini", "google-ai"]
+    }
+  },
+  "metadata": {
+    "source": "embedded_fallback",
+    "token_count": 500
+  }
+}

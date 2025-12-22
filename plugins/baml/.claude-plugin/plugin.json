@@ -1,0 +1,24 @@
+{
+  "name": "baml",
+  "version": "2.0.0",
+  "description": "Production-ready BAML plugin for type-safe LLM extraction - generates code, designs schemas, runs tests, debugs issues with LangGraph integration support",
+  "author": "agentic-insights",
+  "repository": "https://github.com/Agentic-Insights/claude-plugins-marketplace",
+  "license": "Apache-2.0",
+  "keywords": [
+    "baml",
+    "code-generation",
+    "llm",
+    "structured-output",
+    "extraction",
+    "classification",
+    "rag",
+    "agents",
+    "multimodal",
+    "langgraph",
+    "type-safe",
+    "debugging",
+    "testing",
+    "schema-design"
+  ]
+}

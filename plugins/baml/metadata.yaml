@@ -1,0 +1,377 @@
+# BAML Skills - Unified Plugin Metadata
+# Version: 2.0.0
+# Last Updated: 2025-12-17
+
+skill:
+  name: "BAML"
+  version: "2.0.0"
+  description: "Use when working with BAML for type-safe LLM extraction - generates code, designs schemas, runs tests, debugs issues"
+  author: "agentic-insights"
+  license: "Apache-2.0"
+
+activation:
+  triggers:
+    keywords:
+      - "BAML"
+      - "LLM"
+      - "structured output"
+      - "code generation"
+      - "extraction"
+      - "classification"
+      - "RAG"
+      - "agents"
+    patterns:
+      - "generate BAML"
+      - "create BAML function"
+      - "build BAML"
+      - "extract.*BAML"
+      - "classify.*BAML"
+
+  auto_activate: true
+  confidence_threshold: 0.7
+
+requirements:
+  mcp_servers:
+    required:
+      - name: "baml_Docs"
+        description: "Core BAML repository access"
+        repository: "BoundaryML/baml"
+        tools:
+          - "mcp__baml_Docs__fetch_baml_documentation"
+          - "mcp__baml_Docs__search_baml_documentation"
+          - "mcp__baml_Docs__search_baml_code"
+          - "mcp__baml_Docs__fetch_generic_url_content"
+
+    optional:
+      - name: "baml_Examples"
+        description: "Production pattern examples"
+        repository: "BoundaryML/baml-examples"
+        fallback: "Use cached patterns from baml_Docs"
+
+  dependencies:
+    - "MCP protocol support"
+    - "Claude Code runtime"
+
+capabilities:
+  patterns:
+    - extraction
+    - classification
+    - rag
+    - agents
+    - multimodal
+
+  languages:
+    - python
+    - typescript
+    - ruby
+    - java
+    - golang
+    - csharp
+
+  frameworks:
+    python:
+      - fastapi
+      - flask
+      - django
+    typescript:
+      - nextjs
+      - express
+      - nestjs
+    ruby:
+      - rails
+      - sinatra
+
+features:
+  code_generation:
+    types: true
+    functions: true
+    clients: true
+    tests: true
+    integration: true
+    deployment: true
+
+  optimization:
+    token_reduction: true
+    prompt_compression: true
+    type_simplification: true
+    caching: true
+    target_reduction: 0.55  # 55% reduction
+
+  validation:
+    syntax: true
+    types: true
+    semantics: true
+    completeness: true
+    performance: true
+
+  multimodal:
+    image: true
+    audio: true
+    vision_models: true
+
+performance:
+  targets:
+    simple_function_ms: 5000    # <5s
+    complex_system_ms: 30000    # <30s
+    compilation_success: 0.95   # >95%
+    test_pass_rate: 0.90        # >90%
+
+  caching:
+    session_ttl: 900            # 15 minutes
+    persistent_ttl: 604800      # 7 days
+    max_cache_size_mb: 100
+    eviction_policy: "LRU"
+
+  cost:
+    target_per_generation: 0.02  # <$0.02
+    token_budget: 4000           # Skill core
+
+cache:
+  structure:
+    patterns: "cache/patterns.json"
+    syntax: "cache/syntax.json"
+    query_cache: "cache/query_cache.json"
+
+  tiers:
+    - name: "embedded"
+      location: "SKILL.md"
+      size_tokens: 500
+      ttl: null  # never expires
+      content: "Core BAML syntax rules"
+
+    - name: "session"
+      location: "memory"
+      size_patterns: 10
+      ttl: 900  # 15 minutes
+      content: "Recent patterns"
+
+    - name: "persistent"
+      location: "cache/patterns.json"
+      size_patterns: 20
+      ttl: 604800  # 7 days
+      content: "Top patterns by usage"
+
+    - name: "mcp"
+      location: "remote"
+      size: "unlimited"
+      ttl: 0  # real-time
+      content: "Live repository"
+
+outputs:
+  artifacts:
+    - type: "baml_code"
+      format: ".baml"
+      description: "Generated BAML types and functions"
+
+    - type: "tests"
+      formats: [".py", ".ts", ".rb"]
+      description: "Test suites with 100% coverage"
+
+    - type: "integration"
+      formats: [".py", ".ts", ".rb", ".java", ".go", ".cs"]
+      description: "Framework-specific integration code"
+
+    - type: "deployment"
+      formats: ["Dockerfile", "docker-compose.yml", "k8s.yaml"]
+      description: "Deployment configurations"
+
+    - type: "metadata"
+      format: ".json"
+      description: "Generation metadata and metrics"
+
+quality:
+  validation_layers: 5
+  test_coverage_target: 1.0  # 100%
+  min_quality_score: 80
+
+  success_criteria:
+    first_compilation: 0.95
+    type_safety: 1.0
+    test_passage: 0.90
+    user_satisfaction: 0.85
+
+monitoring:
+  metrics:
+    - "generation_time_ms"
+    - "token_count"
+    - "optimization_savings"
+    - "pattern_match_accuracy"
+    - "cache_hit_rate"
+    - "mcp_query_latency"
+    - "validation_success_rate"
+    - "cost_per_generation"
+
+  alerts:
+    - condition: "generation_time_ms > 30000"
+      action: "log_slow_generation"
+
+    - condition: "cache_hit_rate < 0.5"
+      action: "review_cache_strategy"
+
+    - condition: "cost_per_generation > 0.02"
+      action: "investigate_token_usage"
+
+maintenance:
+  pattern_updates:
+    frequency: "real-time"
+    source: "MCP live queries"
+    manual_required: false
+
+  skill_updates:
+    token_budget_check: "on_deploy"
+    compression_review: "monthly"
+    validation_tuning: "quarterly"
+
+documentation:
+  readme: "README.md"
+  quickstart: "../specs/001-baml-codegen-skill/quickstart.md"
+  troubleshooting: "TROUBLESHOOTING.md"
+  examples: "assets/"
+
+skills:
+  - path: "skills/baml-codegen/SKILL.md"
+    purpose: "Code generation from natural language"
+  - path: "skills/baml-philosophy/SKILL.md"
+    purpose: "BAML principles and golden rules"
+  - path: "skills/baml-implementation/SKILL.md"
+    purpose: "Implementation patterns and workflows"
+
+agents:
+  - path: "agents/baml-architect.md"
+    purpose: "Schema design and visualization"
+  - path: "agents/baml-debugger.md"
+    purpose: "Extraction debugging and troubleshooting"
+  - path: "agents/baml-tester.md"
+    purpose: "Test execution and analysis"
+
+commands:
+  - path: "commands/baml-init.md"
+    purpose: "Initialize BAML in project"
+  - path: "commands/baml-test.md"
+    purpose: "Run BAML test suite"
+  - path: "commands/baml-diagnose.md"
+    purpose: "Diagnose configuration issues"
+  - path: "commands/baml-schema.md"
+    purpose: "Visualize/design schemas"
+
+modules:
+  core:
+    - path: "references/philosophy.md"
+      purpose: "BAML principles and golden rules (Vaibhav Gupta)"
+      load: "on_activate"
+    - path: "references/mcp_interface.md"
+      purpose: "MCP query patterns and repository access"
+      load: "on_activate"
+    - path: "references/code_generator.md"
+      purpose: "BAML code synthesis algorithms"
+      load: "on_generate"
+
+  patterns:
+    - path: "references/pattern_library.md"
+      purpose: "Pattern storage and matching"
+      load: "on_match"
+    - path: "references/pattern_matcher.md"
+      purpose: "Similarity scoring algorithms"
+      load: "on_match"
+    - path: "references/advanced_patterns.md"
+      purpose: "Hierarchical extraction, tool calling, streaming"
+      load: "on_demand"
+
+  validation:
+    - path: "references/validator.md"
+      purpose: "5-layer validation pipeline"
+      load: "on_generate"
+    - path: "references/validation_patterns.md"
+      purpose: "@assert/@check practical patterns"
+      load: "on_demand"
+
+  integration:
+    - path: "references/integration_builder.md"
+      purpose: "Framework-specific code generation"
+      load: "on_integrate"
+    - path: "references/test_generator.md"
+      purpose: "Test suite generation"
+      load: "on_generate"
+    - path: "references/deployment_builder.md"
+      purpose: "Docker/K8s configuration"
+      load: "on_deploy"
+
+  utilities:
+    - path: "references/cache_manager.md"
+      purpose: "Multi-tier caching"
+      load: "on_activate"
+    - path: "references/optimizer.md"
+      purpose: "Token reduction algorithms"
+      load: "on_optimize"
+    - path: "references/fallback_patterns.md"
+      purpose: "Offline templates when MCP unavailable"
+      load: "on_fallback"
+
+  references:
+    - path: "references/references/providers.md"
+      purpose: "OpenAI, Anthropic, Ollama configuration"
+    - path: "references/references/types-and-schemas.md"
+      purpose: "Classes, enums, unions, maps"
+    - path: "references/references/validation.md"
+      purpose: "@assert, @check patterns"
+    - path: "references/references/advanced-patterns.md"
+      purpose: "Tool calling, dynamic types"
+    - path: "references/references/languages-python.md"
+      purpose: "Python/Pydantic patterns"
+    - path: "references/references/languages-typescript.md"
+      purpose: "TypeScript patterns"
+    - path: "references/references/languages-other.md"
+      purpose: "Go, Ruby, OpenAPI"
+    - path: "references/references/frameworks-langgraph.md"
+      purpose: "LangGraph integration"
+    - path: "references/references/usecase-image-forms.md"
+      purpose: "Image/form extraction"
+    - path: "references/references/usecase-workflows.md"
+      purpose: "Agent loops, state machines"
+
+version_info:
+  current: "2.0.0"
+  status: "production"
+  release_date: "2025-12-17"
+  changelog:
+    - version: "2.0.0"
+      date: "2025-12-17"
+      changes:
+        - "MAJOR: Merged baml-dev into unified BAML plugin"
+        - "Added 3 agents: baml-architect, baml-debugger, baml-tester"
+        - "Added 4 commands: baml-init, baml-test, baml-diagnose, baml-schema"
+        - "Added 3 skills: baml-codegen, baml-philosophy, baml-implementation"
+        - "Added 10 reference guides (providers, types, validation, LangGraph, etc.)"
+        - "Reorganized to skills/ directory structure"
+    - version: "1.3.0"
+      date: "2025-12-17"
+      changes:
+        - "Added BAML Philosophy section (5 principles, golden rules)"
+        - "Added Context Detection workflow"
+        - "Added Transpiler workflow rules"
+        - "New lib/philosophy.md with full philosophy content"
+        - "New lib/validation_patterns.md with @assert/@check patterns"
+        - "New lib/advanced_patterns.md with hierarchical, tool calling, streaming"
+        - "Updated metadata.yaml with modules registry"
+    - version: "1.2.0"
+      date: "2025-01-30"
+      changes:
+        - "Two-phase MCP validation (baml_Examples → baml_Docs)"
+        - "Enhanced error recovery with auto-fix"
+        - "Observable MCP indicators for transparency"
+        - "Modernization of deprecated patterns"
+    - version: "1.1.0"
+      date: "2025-01-27"
+      changes:
+        - "Added baml_Examples MCP server support"
+        - "Improved pattern matching accuracy"
+        - "Token optimization improvements"
+    - version: "1.0.0"
+      date: "2025-01-25"
+      changes:
+        - "Initial MVP release"
+        - "Core pattern matching (extraction, classification, rag, agents)"
+        - "MCP integration with baml_Docs server"
+        - "Multi-tier caching strategy"
+        - "Test and integration generation"
+        - "5-layer validation pipeline"

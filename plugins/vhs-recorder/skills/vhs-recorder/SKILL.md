@@ -14,7 +14,7 @@ VHS recordings are commonly used for:
 - README hero animations
 </EXTREMELY-IMPORTANT>
 
-# VHS Recorder Skill Workflow
+# VHS Recorder Skill Overview
 
 ## When to Use This Skill
 
@@ -25,7 +25,7 @@ Use this skill when you need to:
 - Record step-by-step command sequences
 - Produce professional software demo videos
 
-## Prerequisites Check
+## Prerequisites
 
 Before starting, verify VHS and its dependencies are installed:
 
@@ -46,505 +46,281 @@ go install github.com/charmbracelet/vhs@latest
 
 **CRITICAL**: VHS requires both `ttyd` and `ffmpeg` on your `$PATH`. If either is missing, the recording will fail.
 
-## VHS Tape File Structure
+## Quick Start
 
-Every VHS tape file follows this structure:
+### Basic Recording Structure
 
+Every VHS tape file follows this pattern:
+
+```tape
+# 1. Declare outputs
+Output demo.gif
+Output demo.mp4
+
+# 2. Configure settings
+Set Width 1200
+Set Height 600
+Set FontSize 32
+Set Theme "Catppuccin Mocha"
+Set Padding 40
+Set TypingSpeed 50ms
+
+# 3. Optional requirements
+Require git
+Require node
+
+# 4. Hidden setup (if needed)
+Hide
+Type "cd /tmp/demo"
+Enter
+Sleep 500ms
+Type "clear"
+Enter
+Show
+
+# 5. Main recording
+Type "echo 'Hello, World!'"
+Enter
+Wait
+Sleep 2s
+
+# 6. Hidden cleanup (if needed)
+Hide
+Type "cd /tmp && rm -rf demo"
+Enter
+Show
 ```
-┌─────────────────────────────┐
-│ 1. Output Declaration       │  Where to save the recording
-│ 2. Settings/Configuration   │  Terminal appearance & behavior
-│ 3. Requirements (optional)  │  Fail-fast dependency checks
-│ 4. Setup (often hidden)     │  Prepare environment
-│ 5. Recording Commands       │  The actual demonstration
-│ 6. Cleanup (often hidden)   │  Teardown operations
-└─────────────────────────────┘
+
+### Run the Recording
+
+```bash
+vhs demo.tape
 ```
+
+This generates `demo.gif` and `demo.mp4` in the current directory.
 
 ## Step-by-Step Workflow
 
-### Step 1: Define Output Formats
-
-Start every tape file by declaring where to save outputs:
+### Step 1: Define Outputs
 
 ```tape
-Output demo.gif
-Output demo.mp4
-Output demo.webm
+Output demo.gif          # For web/README
+Output demo.mp4          # For social media
+Output demo.webm         # For modern browsers
+Output frames/           # PNG sequence for post-processing
 ```
 
-**Multi-output strategy**:
-- GIF for web (README, docs)
-- MP4 for social media
-- WebM for modern browsers
-- PNG sequence for post-processing: `Output frames/`
+### Step 2: Configure Settings
 
-### Step 2: Configure Terminal Settings
-
-Set all configuration BEFORE any interactive commands:
+**Essential settings** (set these first):
 
 ```tape
-# Terminal Dimensions
-Set Width 1200
-Set Height 600
-
-# Typography
-Set FontSize 32
-Set FontFamily "JetBrains Mono"
-Set LetterSpacing 1
-Set LineHeight 1.4
-
-# Appearance
-Set Theme "Catppuccin Mocha"
-Set Padding 40
-Set BorderRadius 8
-Set WindowBar Colorful
-
-# Timing
-Set TypingSpeed 50ms
-Set Framerate 60
-Set PlaybackSpeed 1.0
+Set Width 1200           # Terminal width
+Set Height 600           # Terminal height
+Set FontSize 32          # Text size
+Set Theme "Catppuccin Mocha"  # Color scheme
+Set Padding 40           # Space around terminal
+Set TypingSpeed 50ms     # How fast to type
 ```
 
-**Common presets**:
+See [settings.md](./references/settings.md) for complete configuration options.
 
-| Use Case | Width | Height | FontSize | Padding |
-|----------|-------|--------|----------|---------|
-| README hero | 1200 | 600 | 32-46 | 40 |
-| Tutorial detail | 1400 | 800 | 24-28 | 30 |
-| Social media | 1920 | 1080 | 46-52 | 60 |
-| Compact demo | 800 | 500 | 20-24 | 20 |
-
-### Step 3: Declare Requirements (Optional)
-
-Fail early if dependencies are missing:
+### Step 3: Add Requirements (Optional)
 
 ```tape
 Require git
 Require node
-Require npm
+Require docker
 ```
-
-Place `Require` commands at the top of the file, immediately after settings.
 
 ### Step 4: Hidden Setup
 
-Use `Hide`/`Show` to prepare the environment without recording:
+Use `Hide`/`Show` to prepare without recording:
 
 ```tape
 Hide
-
-# Setup that shouldn't appear in the recording
-Type "cd /tmp/demo"
-Enter
-Sleep 500ms
-
 Type "npm install --silent"
 Enter
 Sleep 5s
-
 Type "clear"
 Enter
-
 Show
 ```
 
-**When to use hidden setup**:
-- Installing dependencies
-- Cloning repositories
-- Building projects
-- Creating test files
-- Clearing the terminal before recording starts
+### Step 5: Record Main Content
 
-### Step 5: Record the Demonstration
-
-Now record the actual content using these command patterns:
-
-#### Typing Commands
+**Basic commands**:
 
 ```tape
-# Standard typing (uses global TypingSpeed)
-Type "echo 'Hello, World!'"
-Enter
-
-# Override typing speed for emphasis
-Type@500ms "This types slowly for dramatic effect"
-Enter
-
-# Fast typing for boilerplate
-Type@10ms "npm run build && npm test"
-Enter
+Type "command here"      # Type text
+Enter                    # Press Enter
+Wait                     # Wait for prompt
+Sleep 2s                 # Fixed pause
 ```
 
-#### Waiting Strategies
+**Key patterns**:
 
 ```tape
-# Wait for shell prompt (default behavior)
-Wait
-
-# Wait for specific text to appear
-Wait /Done in/
-
-# Wait for text anywhere on screen
-Wait+Screen /SUCCESS/
-
-# Custom timeout (default is 15s)
-Wait@5s /Loading complete/
-
-# Fixed sleep for known durations
-Sleep 2s
-```
-
-**Choose the right waiting strategy**:
-- `Wait` (no args) → Shell prompt returns
-- `Wait /pattern/` → Specific output appears
-- `Sleep <duration>` → Known fixed delays
-
-#### Navigation & Editing
-
-```tape
-# Arrow keys
-Up 2
-Down 1
-Left 5
-Right 3
-
-# Editing
-Backspace 10
-Tab 2
-Space 3
-
-# Page navigation
-PageUp
-PageDown
-
-# Modifier keys
-Ctrl+C
-Ctrl+D
-Ctrl+L
-```
-
-#### Clipboard Operations
-
-```tape
-# Copy text to clipboard
-Copy "docker-compose up -d"
-
-# Paste from clipboard
-Paste
+# Standard command with pause
+Type "ls -la"
 Enter
-```
+Wait                     # Wait for command to finish
+Sleep 2s                 # Give viewer time to read
 
-### Step 6: Control Recording Flow
-
-#### Pausing for Effect
-
-```tape
-Type "rm -rf production-database"
-Sleep 2s          # Let the danger sink in
-Backspace 100     # Phew, that was close!
-
-Type "rm -rf test-database"
-Enter
-```
-
-#### Hiding Cleanup
-
-```tape
-Hide
-
-# Teardown commands
-Type "docker-compose down"
-Enter
-Sleep 2s
-
-Type "rm -rf demo-project"
-Enter
-
-Show
-```
-
-## Timing Best Practices
-
-### The 3-2-1 Timing Rule
-
-| Situation | Recommended Timing |
-|-----------|-------------------|
-| After commands | `Sleep 3s` or `Wait` |
-| Between actions | `Sleep 2s` |
-| Quick pause | `Sleep 1s` |
-| Dramatic pause | `Sleep 5s` |
-
-### TypingSpeed Guidelines
-
-```tape
-Set TypingSpeed 50ms   # Natural, readable (default)
-Set TypingSpeed 100ms  # Slow, tutorial style
-Set TypingSpeed 25ms   # Fast, experienced user
-Set TypingSpeed 10ms   # Instant (setup/cleanup)
-```
-
-**Per-command overrides**:
-```tape
-Type@500ms "Pay attention to this!"  # Slow emphasis
-Type@10ms "boilerplate code here"   # Fast filler
-```
-
-## Advanced Patterns
-
-### Environment Configuration
-
-```tape
-Env DATABASE_URL "postgresql://localhost/demo"
-Env LOG_LEVEL "debug"
-```
-
-### Dynamic Content Waiting
-
-```tape
-# Wait for build completion
-Type "npm run build"
-Enter
-Wait /Build succeeded/
-
-# Wait for server startup
-Type "npm start"
-Enter
-Wait /Server listening on/
-Sleep 1s
-```
-
-### Screenshot Capture
-
-```tape
-# Capture frame at specific point
-Type "curl https://api.example.com/status"
-Enter
-Wait /200 OK/
-Screenshot screenshots/success.png
-Sleep 1s
-```
-
-### Multi-Stage Demonstrations
-
-```tape
-# Stage 1: Show the problem
-Type "git status"
-Enter
-Wait
-Sleep 2s
-
-# Stage 2: Apply the fix
-Type "git add ."
-Enter
-Type "git commit -m 'fix: resolve merge conflict'"
-Enter
-Wait
-Sleep 1s
-
-# Stage 3: Verify resolution
-Type "git status"
-Enter
-Wait
-Sleep 3s
-```
-
-## Common Pitfalls & Solutions
-
-### Problem: Recording Too Fast
-
-```tape
-# ❌ Bad: Commands run before output appears
+# Wait for specific output
 Type "npm install"
 Enter
-Type "npm start"  # Runs before install finishes!
-Enter
+Wait /added/            # Wait for this text to appear
 
-# ✅ Good: Wait for completion
-Type "npm install"
-Enter
-Wait /added/      # Wait for install to finish
-Sleep 1s
-Type "npm start"
-Enter
+# Override typing speed
+Type@500ms "slow typing for emphasis"
+Type@10ms "fast typing for boilerplate"
 ```
 
-### Problem: Ugly Terminal State
+See [vhs-syntax.md](./references/vhs-syntax.md) for all commands.
+
+### Step 6: Control Timing
+
+**The 3-2-1 Rule**:
+- 3 seconds after important commands
+- 2 seconds between actions
+- 1 second for quick transitions
+
+See [timing-control.md](./references/timing-control.md) for complete timing strategies.
+
+## Common Patterns
+
+### Clean Start
 
 ```tape
-# ❌ Bad: Recording starts with messy terminal
-Show
-Type "ls"
-
-# ✅ Good: Clean slate
 Hide
 Type "clear"
 Enter
 Show
-Type "ls"
 ```
 
-### Problem: Inconsistent Timing
+### Command-Wait-Pause Pattern
 
 ```tape
-# ❌ Bad: Hard to follow
-Type "command1"
+Type "command"
 Enter
-Type "command2"
-Enter
-
-# ✅ Good: Breathing room
-Type "command1"
-Enter
-Wait
-Sleep 2s
-
-Type "command2"
-Enter
-Wait
-Sleep 2s
+Wait                     # Wait for completion
+Sleep 2s                 # Let viewer read output
 ```
 
-### Problem: Sensitive Information
+### Fast Hidden Setup
 
 ```tape
-# ❌ Bad: Exposing secrets
-Type "export API_KEY=sk_live_abc123xyz"
-
-# ✅ Good: Use placeholders
-Type "export API_KEY=sk_live_xxx_redacted"
+Hide
+Type@10ms "cd /tmp && mkdir demo && cd demo"
+Enter
+Sleep 500ms
+Show
 ```
 
-## Testing & Iteration
-
-### Quick Preview with ASCII Output
+### Dramatic Effect
 
 ```tape
-Output demo.ascii
-# ... rest of tape file
-
-# View immediately in terminal
-cat demo.ascii
+Type "rm -rf production/"
+Sleep 3s                 # Let danger sink in
+Backspace 100            # Phew, that was close!
 ```
 
-**Why**: ASCII output is instant (no video encoding). Perfect for iteration.
+## Reference Documentation
 
-### Validation Checklist
+For detailed information, see these reference guides:
 
-Before finalizing your recording:
+| Topic | File | Contents |
+|-------|------|----------|
+| **VHS Syntax** | [vhs-syntax.md](./references/vhs-syntax.md) | Complete command reference, waiting strategies, navigation keys |
+| **Timing Control** | [timing-control.md](./references/timing-control.md) | TypingSpeed, Wait vs Sleep, pacing patterns, timing best practices |
+| **Settings** | [settings.md](./references/settings.md) | Terminal appearance, themes, dimensions, typography, configuration presets |
+| **Examples** | [examples.md](./references/examples.md) | Real-world tape files: CLI demos, Git workflows, Docker, API testing |
+
+## Quality Checklist
+
+Before finalizing your VHS recording:
 
 - [ ] All dependencies installed (`vhs`, `ttyd`, `ffmpeg`)
 - [ ] Output formats declared at top
 - [ ] Settings configured before commands
 - [ ] Hidden setup/cleanup for cleanliness
 - [ ] Appropriate `Wait` vs `Sleep` usage
-- [ ] Timing allows reading output
+- [ ] Timing allows reading output (2-3s after important commands)
 - [ ] No sensitive information exposed
 - [ ] Terminal cleared before main content
 - [ ] Tested with `vhs tape.tape`
 
-## Complete Example: CLI Tool Demo
+## Common Issues
+
+### Recording Too Fast
+
+**Problem**: Commands run before previous output appears
 
 ```tape
-# demo.tape - Complete example
+# ❌ Bad
+Type "npm install"
+Enter
+Type "npm start"  # Runs too soon!
 
-# Outputs
-Output demo.gif
-Output demo.mp4
+# ✅ Good
+Type "npm install"
+Enter
+Wait /added/      # Wait for completion
+Sleep 1s
+Type "npm start"
+```
 
-# Configuration
-Set Width 1200
-Set Height 600
-Set FontSize 32
-Set Theme "Catppuccin Mocha"
-Set Padding 40
-Set TypingSpeed 50ms
+### Messy Terminal State
 
-# Dependencies
-Require git
-Require node
+**Problem**: Recording shows previous commands/output
 
-# Hidden Setup
+```tape
+# ✅ Solution: Clear before recording
 Hide
-Type "cd /tmp && rm -rf demo-project"
-Enter
-Sleep 500ms
-Type "git clone https://github.com/example/demo-project"
-Enter
-Sleep 3s
-Type "cd demo-project"
-Enter
 Type "clear"
 Enter
 Show
 
-# Main Recording
-Type "# Let's explore this project"
-Enter
-Sleep 1s
-
-Type "ls -la"
-Enter
-Wait
-Sleep 2s
-
-Type "cat package.json"
-Enter
-Wait
-Sleep 3s
-
-Type "# Install dependencies"
-Enter
-Type "npm install"
-Enter
-Wait /added/
-Sleep 2s
-
-Type "# Run the demo"
-Enter
-Type "npm run demo"
-Enter
-Wait /Demo complete/
-Sleep 3s
-
-# Hidden Cleanup
-Hide
-Type "cd /tmp && rm -rf demo-project"
-Enter
-Show
+Type "your command here"
 ```
 
-## Execution
+### Inconsistent Pacing
 
-Run the tape file:
+**Problem**: Hard to follow
 
-```bash
-vhs demo.tape
+```tape
+# ✅ Solution: Consistent timing pattern
+Type "command"
+Enter
+Wait
+Sleep 2s          # Always pause after commands
 ```
 
-**Options**:
-- `vhs demo.tape` → Generate all declared outputs
-- `vhs < demo.tape` → Read from stdin
-- `vhs --help` → View all CLI options
+## Quick Tips
+
+1. **Test with ASCII**: Use `Output demo.ascii` for instant previews
+2. **Use Hide/Show**: Keep setup/cleanup out of recordings
+3. **Wait for output**: Use `Wait /pattern/` for dynamic content
+4. **Consistent timing**: Follow the 3-2-1 rule
+5. **Clear terminal**: Start with clean state
+6. **Check dependencies**: Run `Require` checks early
+7. **Multi-format**: Generate GIF + MP4 + WebM
+8. **Viewer pacing**: 2-3 seconds after important output
 
 ## Resources
 
 - [VHS GitHub Repository](https://github.com/charmbracelet/vhs)
 - [VHS Manual](https://github.com/charmbracelet/vhs/blob/main/README.md) (or run `vhs manual`)
 - [Charm.sh Community](https://charm.sh)
+- View all themes: `vhs themes`
 
-## Quality Checklist
+## Next Steps
 
-Before considering your VHS recording complete:
-
-1. **Structure**: Output → Settings → Requirements → Content
-2. **Timing**: Every command has appropriate `Wait` or `Sleep`
-3. **Visibility**: Setup/cleanup hidden with `Hide`/`Show`
-4. **Clarity**: Terminal cleared before main content
-5. **Pacing**: Viewers can read all output before next action
-6. **Testing**: Ran `vhs tape.tape` successfully
-7. **Outputs**: All declared formats generated correctly
-8. **Privacy**: No sensitive information exposed
+1. Review [examples.md](./references/examples.md) for real-world patterns
+2. Consult [settings.md](./references/settings.md) to customize appearance
+3. Read [timing-control.md](./references/timing-control.md) for pacing mastery
+4. Reference [vhs-syntax.md](./references/vhs-syntax.md) for complete command list
 
 ---
 
