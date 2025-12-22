@@ -31,3 +31,7 @@ recordings/
 
 # VHS generated tape files (contain user-specific paths)
 **/tapes/live-*.tape
+
+# Benchmark results (generated)
+benchmarks/results/
+benchmarks/.pytest_cache/
