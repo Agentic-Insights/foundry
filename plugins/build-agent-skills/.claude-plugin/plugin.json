@@ -2,7 +2,9 @@
   "name": "build-agent-skills",
   "version": "2.3.0",
   "description": "Build skills with the Agent Skills open standard - create, validate, and publish portable skills for AI agents across Claude Code, Cursor, GitHub Copilot, and more",
-  "author": "agentic-insights",
+  "author": {
+    "name": "agentic-insights"
+  },
   "license": "Apache-2.0",
   "repository": "https://github.com/Agentic-Insights/claude-plugins-marketplace",
   "keywords": [

@@ -2,7 +2,9 @@
   "name": "para-pkm",
   "version": "1.0.0",
   "description": "Manage PARA-based personal knowledge management (PKM) systems using Projects, Areas, Resources, and Archives organization method. Create, organize, and maintain PARA knowledge bases with AI-friendly navigation.",
-  "author": "agentic-insights",
+  "author": {
+    "name": "agentic-insights"
+  },
   "license": "Apache-2.0",
   "repository": "https://github.com/Agentic-Insights/claude-plugins-marketplace",
   "keywords": [

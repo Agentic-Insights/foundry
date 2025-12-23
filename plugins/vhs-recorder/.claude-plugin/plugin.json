@@ -15,7 +15,9 @@
     "video",
     "charmbracelet"
   ],
-  "author": "agentic-insights",
+  "author": {
+    "name": "agentic-insights"
+  },
   "license": "MIT",
   "repository": "https://github.com/Agentic-Insights/claude-plugins-marketplace"
 }
