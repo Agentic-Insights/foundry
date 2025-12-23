@@ -1,0 +1,15 @@
+[project]
+name = "plugin-validator"
+version = "1.0.0"
+description = "Validation tool for Claude Code plugins in the marketplace"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.1",
+    "rich>=13.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.8",
+]

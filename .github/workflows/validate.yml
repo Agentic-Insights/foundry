@@ -1,0 +1,61 @@
+name: Validate Plugins
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/**'
+      - '.claude-plugin/**'
+      - 'scripts/validate.py'
+      - 'scripts/pyproject.toml'
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/**'
+      - '.claude-plugin/**'
+      - 'scripts/validate.py'
+      - 'scripts/pyproject.toml'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Add uv to PATH
+        run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Run validation
+        id: validate
+        run: |
+          cd scripts
+          uv sync
+          uv run python validate.py --output json --no-color > validation-report.json
+          # Also print text output for logs
+          uv run python validate.py --no-color
+        continue-on-error: true
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: scripts/validation-report.json
+          retention-days: 30
+
+      - name: Check validation status
+        if: steps.validate.outcome == 'failure'
+        run: |
+          echo "❌ Plugin validation failed"
+          echo "Check the logs above for details"
+          exit 1

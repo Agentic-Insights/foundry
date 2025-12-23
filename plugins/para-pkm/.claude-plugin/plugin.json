@@ -18,6 +18,6 @@
     "note-taking"
   ],
   "skills": [
-    "skills/para-pkm/para-pkm"
+    "./skills/para-pkm"
   ]
 }
