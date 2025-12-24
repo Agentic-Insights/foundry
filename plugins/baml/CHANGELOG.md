@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Production release for Agentic Insights Claude Code Plugin Marketplace
-- 3 production-ready skills:
+- 3 skills:
   - `baml-codegen`: MCP-powered code generation (3800 token budget)
   - `baml-implementation`: Implementation patterns and best practices
   - `baml-philosophy`: Design principles and architectural guidance

@@ -2,7 +2,7 @@
 
 **Source**: Vaibhav Gupta, BAML Co-creator
 
-This document provides the foundational principles that guide all BAML development. Understanding these principles is essential for generating correct, production-ready BAML code.
+This document provides the foundational principles that guide all BAML development. Understanding these principles is essential for generating correct, reliable BAML code.
 
 ## The Core Problem
 
@@ -115,4 +115,4 @@ When this skill generates BAML code, it applies these principles:
 5. **ctx.output_format in every prompt** - Non-negotiable inclusion
 6. **Test generation** - Every function gets test cases
 
-This philosophy ensures generated code is production-ready, not demo-ready.
+This philosophy ensures generated code is reliable, not demo-ready.

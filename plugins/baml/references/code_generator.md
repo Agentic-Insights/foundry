@@ -6,7 +6,7 @@
 
 ## Overview
 
-The Code Generator is the core synthesis engine that transforms requirement specifications and matched patterns into production-ready BAML code. It generates types, functions, clients, and applies optimizations.
+The Code Generator is the core synthesis engine that transforms requirement specifications and matched patterns into complete BAML code. It generates types, functions, clients, and applies optimizations.
 
 ## Generation Pipeline
 

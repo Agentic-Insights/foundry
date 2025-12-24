@@ -1,13 +1,13 @@
 # BAML Code Generation Skill
 
 **Version**: 2.0.0
-**Status**: Production Ready
+**Status**: Stable
 **Token Budget**: 3800 tokens (validated)
 **Contributors**: Original implementation by [Fry](https://github.com/FryrAI)
 
 ## Overview
 
-A Claude Code skill that generates production-ready BAML applications by querying official BoundaryML repositories through MCP servers. Generates complete solutions including types, functions, tests, and integrations with 95%+ compilation success.
+A Claude Code skill that generates BAML applications by querying official BoundaryML repositories through MCP servers. Generates complete solutions including types, functions, tests, and integrations with 95%+ compilation success.
 
 ## Features
 
@@ -342,7 +342,7 @@ Apache-2.0 License - See [LICENSE.txt](LICENSE.txt) for details
 
 ---
 
-**Status**: ✅ Production Ready
+**Status**: ✅ Stable
 **MCP Connection**: ✅ Verified
 **Token Budget**: ✅ 3800 tokens (within limit)
 **All Tests**: ✅ Core functionality validated

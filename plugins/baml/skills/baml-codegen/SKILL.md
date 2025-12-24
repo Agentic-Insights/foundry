@@ -13,7 +13,7 @@ compatibility: "Requires MCP servers: baml_Docs (required), baml_Examples (optio
 
 ## Overview
 
-Generate production-ready BAML applications by querying official BoundaryML repositories through MCP servers. This skill extracts patterns, validates syntax, and synthesizes complete solutions including types, functions, tests, and integrations.
+Generate BAML applications by querying official BoundaryML repositories through MCP servers. This skill extracts patterns, validates syntax, and synthesizes complete solutions including types, functions, tests, and integrations.
 
 **BAML treats LLM calls with the same rigor as database calls** - structured, typed, and testable. It transpiles `.baml` files into native Python/TypeScript/Ruby/Go code with zero runtime dependencies.
 
