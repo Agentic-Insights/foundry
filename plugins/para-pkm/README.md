@@ -395,6 +395,6 @@ This plugin is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for
 
 ## Author
 
-Created by [Agentic Insights](https://agenticinsights.com) - AI engineering consulting for production-ready systems.
+Created by [Agentic Insights](https://agenticinsights.com) - AI engineering consulting.
 
 Part of the [Claude Plugins Marketplace](https://github.com/Agentic-Insights/claude-plugins-marketplace).
