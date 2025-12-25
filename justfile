@@ -152,6 +152,21 @@ validate plugin:
         ERRORS=$((ERRORS+1))
     fi
 
+    # Validate skills with skills-ref (Agent Skills spec)
+    if [[ -d "$DIR/skills" ]]; then
+        echo "🔍 Validating skills with skills-ref..."
+        for skill_dir in "$DIR/skills"/*; do
+            if [[ -d "$skill_dir" ]]; then
+                skill_name=$(basename "$skill_dir")
+                if ! uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref \
+                    skills-ref validate "$skill_dir" 2>&1; then
+                    echo "❌ Skill validation failed: $skill_name"
+                    ERRORS=$((ERRORS+1))
+                fi
+            fi
+        done
+    fi
+
     if [[ $ERRORS -eq 0 ]]; then
         echo "✅ $PLUGIN is valid"
     else

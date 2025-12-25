@@ -1,3 +1,8 @@
+---
+name: adversarial-coach
+description: Adversarial implementation review based on Block's g3 dialectical autocoding research
+---
+
 # /coach - Adversarial Implementation Review
 
 Invoke an adversarial coach to validate your implementation against requirements. Based on Block's g3 dialectical autocoding research.
