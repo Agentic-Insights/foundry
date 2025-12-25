@@ -1,0 +1,8 @@
+[
+  {
+    "id": "claude-code-guide",
+    "name": "Agent Skills Guide",
+    "description": "Comprehensive guide for creating, validating, and publishing Agent Skills following the agentskills.io open standard",
+    "skills": ["agentskills-io"]
+  }
+]

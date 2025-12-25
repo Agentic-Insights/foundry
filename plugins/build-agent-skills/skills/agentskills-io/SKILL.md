@@ -1,5 +1,5 @@
 ---
-name: working-with-agent-skills
+name: agentskills-io
 description: Create, validate, and publish Agent Skills following the official open standard from agentskills.io. Use when (1) creating new skills for AI agents, (2) validating skill structure and metadata, (3) understanding the Agent Skills specification, (4) converting existing documentation into portable skills, or (5) ensuring cross-platform compatibility with Claude Code, Cursor, GitHub Copilot, and other tools.
 license: Apache-2.0
 metadata:
@@ -9,7 +9,7 @@ metadata:
   reference-repo: https://github.com/agentskills/agentskills
 ---
 
-# Working with Agent Skills
+# Agent Skills (agentskills.io)
 
 Create, validate, and publish portable skills following the open standard for AI agent capabilities.
 
@@ -362,6 +362,35 @@ uv tool install git+https://github.com/agentskills/agentskills#subdirectory=skil
 
 For detailed troubleshooting, see [validation.md](references/validation.md).
 
+### Validate Entire Repository
+
+Use the included `validate-skills-repo.sh` wrapper to validate all skills in a repository at once using `skills-ref`:
+
+```bash
+# Validate current directory
+bash scripts/validate-skills-repo.sh
+
+# Validate specific repository
+bash scripts/validate-skills-repo.sh /path/to/repo
+```
+
+**Example output:**
+```
+Validating Agent Skills in: /home/user/my-plugin-marketplace
+
+✓ my-skill-name
+✓ another-skill
+✓ third-skill
+
+Results: 3 skills, 0 failed
+```
+
+The script:
+- Finds all SKILL.md files in the repository
+- Validates each against the Agent Skills specification using `skills-ref`
+- Reports pass/fail for each skill
+- Returns exit code matching the number of failures (0 = all pass)
+
 ## Examples
 
 ### Minimal Valid Skill
@@ -462,3 +491,7 @@ Agent Skills provide a standardized way to extend AI agent capabilities:
 - ✅ **Community-Driven** — Contributions welcome
 
 Start simple and iterate based on real-world usage. The specification is flexible while maintaining cross-platform compatibility.
+
+## Official Specification
+
+For the complete Agent Skills specification, see: **https://agentskills.io/specification**
