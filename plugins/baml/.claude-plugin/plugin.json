@@ -1,6 +1,6 @@
 {
   "name": "baml",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "BAML plugin for type-safe LLM extraction - generates code, designs schemas, runs tests, debugs issues with LangGraph integration support",
   "author": {
     "name": "agentic-insights"

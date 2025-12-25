@@ -1,6 +1,6 @@
 {
   "name": "claude-plugins-marketplace",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "description": "Professional Claude Code plugins for AI engineering consulting - patterns from real engagements",
   "author": {
     "name": "agentic-insights"
