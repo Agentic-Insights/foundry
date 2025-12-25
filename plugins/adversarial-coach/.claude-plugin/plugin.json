@@ -1,0 +1,22 @@
+{
+  "name": "adversarial-coach",
+  "version": "0.1.0",
+  "description": "Adversarial code review subagent based on Block's g3 dialectical autocoding research - validates implementations against requirements with fresh context objectivity",
+  "author": {
+    "name": "agentic-insights"
+  },
+  "repository": "https://github.com/Agentic-Insights/claude-plugins-marketplace",
+  "license": "Apache-2.0",
+  "keywords": [
+    "adversarial",
+    "coach",
+    "code-review",
+    "validation",
+    "requirements",
+    "dialectical",
+    "autocoding",
+    "g3",
+    "subagent",
+    "quality-assurance"
+  ]
+}

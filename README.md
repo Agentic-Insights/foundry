@@ -131,12 +131,43 @@ Record terminal sessions with Charm's VHS. Create CLI demos, tutorials, and docu
 
 [Documentation →](./plugins/vhs-recorder/)
 
+---
+
+### [adversarial-coach](./plugins/adversarial-coach/) 🆕
+
+Adversarial code review subagent based on Block's [g3 dialectical autocoding research](https://block.xyz/documents/adversarial-cooperation-in-code-synthesis.pdf). Validates implementations against requirements with fresh context objectivity.
+
+**Skill Installation (Claude Code):**
+```bash
+/plugin install adversarial-coach@agentic-insights
+```
+
+<details>
+<summary><strong>Includes</strong></summary>
+
+**⚡ Command:**
+- `/coach [requirements-file]` - Adversarial implementation review
+
+**🤖 Agent:**
+- `coach` - Independent code reviewer with fresh context
+
+**🎯 Key Features:**
+- Reviews from fresh context (no implementation bias)
+- Validates against stated requirements
+- Returns `IMPLEMENTATION_APPROVED` or specific actionable fixes
+- Catches missing auth, incomplete error handling, skipped requirements
+
+</details>
+
+[Documentation →](./plugins/adversarial-coach/)
+
 ## Categories
 
 - **Agent Development** - Agent Skills standard, skill creation, validation
 - **Infrastructure** - AWS Bedrock, cloud, DevOps
 - **AI Engineering** - LangGraph, RAG, agentic workflows
 - **Developer Tools** - Terminal recording, CLI demos, documentation
+- **Code Quality** - Adversarial review, validation, testing
 - **Consulting** - Fractional CTO tools (coming soon)
 
 ## About Agentic Insights
@@ -172,6 +203,7 @@ Plugins have individual licenses. See each directory for details.
 | baml | Apache-2.0 |
 | para-pkm | MIT |
 | vhs-recorder | MIT |
+| adversarial-coach | Apache-2.0 |
 
 ## Support
 
