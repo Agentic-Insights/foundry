@@ -89,10 +89,14 @@ Write documentation for three audiences:
 
 **Claude plugin versioning** - Each `plugins[].version` in `.claude-plugin/marketplace.json` is compared independently for update detection. The top-level `metadata.version` is just for the marketplace catalog itself.
 
-When releasing a new plugin or update:
-1. Bump the specific `plugins[].version` in `marketplace.json`
-2. Update the plugin's own `.claude-plugin/plugin.json` version
-3. Optionally bump `metadata.version` to signal catalog changes
+**Use justfile for version management:**
+```bash
+just versions                           # Show all plugin versions
+just bump-plugin <name> patch|minor|major  # Bump a plugin version
+just release-plugin <name> patch        # Bump + commit + push
+just validate <name>                    # Validate plugin structure
+just add-plugin <name>                  # Add new plugin to marketplace.json
+```
 
 ### Commit Messages
 
