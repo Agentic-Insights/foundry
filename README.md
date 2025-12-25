@@ -2,7 +2,7 @@
 
 **Claude Code plugins for AI engineering.**
 
-Plugins for building and deploying AI agents, drawn from consulting engagements.
+Plugins for building and deploying AI agents, drawn from consulting engagements and research projects.
 
 ![Plugin Installation Demo](./recordings/plugin-installation.gif)
 
