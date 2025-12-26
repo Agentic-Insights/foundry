@@ -37,3 +37,6 @@ recordings/*
 # Benchmark results (generated)
 benchmarks/results/
 benchmarks/.pytest_cache/
+
+# Marketplace linter cache (generated)
+.cache/
