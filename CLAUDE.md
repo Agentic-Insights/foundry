@@ -1,188 +1,114 @@
-# CLAUDE.md
+# CLAUDE.md - Terse Marketplace Guidance
 
-This file provides guidance to Claude Code when working with the Agentic Insights Plugin Marketplace.
-
-## Project Overview
-
-A professional Claude Code plugin marketplace for Agentic Insights consulting. This repository contains plugins that serve three purposes:
-1. **Lead generation** - Showcase AI engineering expertise to potential clients
-2. **Client enablement** - Tools and patterns for post-engagement momentum
-3. **Product-ized solutions** - Repeatable consulting patterns encoded as plugins
+Guidance for Claude Code when working with the Agentic Insights Plugin Marketplace.
 
 ## Repository Structure
 
 ```
-claude-plugins-marketplace/
-├── plugins/
-│   └── aws-agentcore-langgraph/    # Individual plugin directories
-│       ├── .claude-plugin/
-│       │   └── plugin.json
-│       ├── README.md
-│       ├── CHANGELOG.md
-│       ├── LICENSE
-│       ├── skills/
-│       ├── examples/
-│       └── recordings/
-├── README.md                        # Marketplace landing page
-├── CLAUDE.md                        # This file
-├── CONTRIBUTING.md                  # Contribution guidelines
-└── .github/
-    └── workflows/
-        └── release.yml              # Semantic release automation
+plugins/
+├── <plugin-name>/
+│   ├── .claude-plugin/plugin.json
+│   ├── README.md
+│   ├── CHANGELOG.md
+│   ├── LICENSE (Apache-2.0)
+│   ├── skills/
+│   │   └── <skill-name>/SKILL.md (+ references/, assets/, scripts/)
+│   ├── agents/
+│   │   └── <subagent-name>.md
+│   ├── examples/
+│   └── recordings/
 ```
 
-## Plugin Development Standards
+## Plugin Purpose
 
-### Quality Requirements
+- **Lead generation** - Showcase AI engineering expertise
+- **Client enablement** - Post-engagement momentum patterns
+- **Product-ized solutions** - Repeatable consulting encoded as skills
 
-- All skills must have clear descriptions and use cases
-- Follow superpowers plugin patterns for structure
-- Include comprehensive README with examples
-- Test skills with real scenarios before publishing
-- Use conventional commits for semantic versioning
+## Skill Structure (Agent Skills Spec)
 
-### Skill Structure
+- **Required**: `SKILL.md` with YAML frontmatter (name, description) + Markdown instructions
+- **Optional dirs**: `scripts/` (executable code), `references/` (detailed docs), `assets/` (static files)
+- **No other subdirectories allowed**
+- Keep SKILL.md under 500 lines (use progressive disclosure)
+- Directory name MUST match frontmatter `name:` field
 
-Each skill in a plugin should follow this pattern:
+## Frontmatter Fields
+
+- **Required**: `name` (1-64 chars, lowercase alphanumeric-hyphens), `description` (1-1024 chars, include "Use when...")
+- **Optional**: `license` (SPDX), `compatibility` (environment reqs), `metadata` (author, version, tags), `allowed-tools` (space-delimited)
+
+## Skill Writing Patterns
+
+### Terse (Preferred for Action Skills)
+- Bullet points, no prose
+- "Do this", "Then this"
+- Concrete examples only
+- Reference detailed docs via links
+- ~50-100 lines typical
+
+### Comprehensive (For Teaching/Reference)
+- Can exceed 500 lines if justified
+- Multiple sections with explanations
+- Extensive examples embedded
+- Use for: tutorials, API docs, specifications
+
+See `assets/` subdirectory for style examples.
+
+## Quality Checklist
+
+- [ ] Validate with `skills-ref validate path/to/skill`
+- [ ] SKILL.md exists with valid frontmatter
+- [ ] Description includes "Use when..."
+- [ ] Examples are runnable/concrete
+- [ ] No hardcoded paths (use relative paths)
+- [ ] Progressive disclosure applied (refs → references/, assets/)
+- [ ] Cross-platform compatible (test with multiple agents)
+- [ ] Licensed under Apache-2.0
+- [ ] Plugin has README.md with installation instructions
+
+## Versioning
+
+- Semantic versioning per plugin: MAJOR.MINOR.PATCH
+- Auto-detect and bump only changed plugins: `bash scripts/bump-changed-plugins.sh`
+- Or manually: `just bump-plugin <name> patch|minor|major`
+
+## Commit Format
 
 ```
-skills/
-└── plugin-name/
-    └── skill-name/
-        ├── SKILL.md       # Complete documentation
-        └── prompt.md      # Optional: additional context
+feat(plugin-name): Add feature description
+fix(plugin-name): Fix bug description
+docs: Update documentation
+chore: Maintenance
 ```
-
-### Plugin Metadata (plugin.json)
-
-Each plugin must include:
-- Accurate description (appears in marketplace)
-- Relevant keywords for discoverability
-- Repository URL (github.com/Agentic-Insights/claude-plugins-marketplace)
-- Author: agentic-insights or killerapp
-- Appropriate license (Apache-2.0 for corporate-friendly, MIT otherwise)
-
-### Target Audience
-
-Write documentation for three audiences:
-1. **Potential clients** - Clear value proposition, professional tone
-2. **Current/past clients** - Practical implementation guidance
-3. **Development teams** - Technical details and integration patterns
-
-## Development Workflow
-
-### Adding New Plugins
-
-1. Create plugin directory in `plugins/<plugin-name>/`
-2. Add `.claude-plugin/plugin.json` with metadata
-3. Create comprehensive README.md
-4. Add skills, examples, documentation
-5. Update root README.md with plugin listing
-6. Test locally before pushing
-
-### Versioning
-
-- Use semantic versioning (MAJOR.MINOR.PATCH)
-- Each plugin tracks its own version independently
-- Marketplace infrastructure has separate versioning
-- GitHub Actions credits exhausted - bump versions manually
-
-**Claude plugin versioning** - Each `plugins[].version` in `.claude-plugin/marketplace.json` is compared independently for update detection. The top-level `metadata.version` is just for the marketplace catalog itself.
-
-**Use justfile for version management:**
-```bash
-just versions                           # Show all plugin versions
-just bump-plugin <name> patch|minor|major  # Bump a plugin version
-just release-plugin <name> patch        # Bump + commit + push
-just validate <name>                    # Validate plugin structure
-just add-plugin <name>                  # Add new plugin to marketplace.json
-```
-
-### Commit Messages
-
-Follow conventional commits:
-- `feat:` - New features (minor version bump)
-- `fix:` - Bug fixes (patch version bump)
-- `docs:` - Documentation (no version bump)
-- `chore:` - Maintenance (no version bump)
-
-Example:
-```bash
-git commit -m "feat(aws-agentcore): add memory persistence skill"
-git commit -m "fix(aws-agentcore): correct CLI invocation pattern"
-git commit -m "docs: update marketplace installation instructions"
-```
-
-## Plugin Lifecycle
-
-1. **Alpha** - Private/client-specific, not in marketplace
-2. **Beta** - In marketplace, marked as beta in description
-3. **Stable** - Documented, tested, reliable
-4. **Deprecated** - Marked but still available
-
-## Available Tools
-
-Use these Claude Code skills when developing plugins:
-- `plugin-dev:create-plugin` - Guided plugin creation
-- `plugin-dev:skill-reviewer` - Quality review for skills
-- `plugin-dev:plugin-validator` - Validate plugin structure
-- `superpowers:writing-skills` - Create skills following best practices
-
-## Skill Validation
-
-### Agent Skills Open Standard
-
-All skills in this repository follow the **[Agent Skills](https://agentskills.io)** open standard - an interoperable format for packaging AI agent capabilities supported by Claude Code, Cursor, GitHub Copilot, and more.
-
-**For comprehensive guidance on creating and validating skills**, use the `build-agent-skills` plugin included in this marketplace:
-
-```bash
-# The build-agent-skills plugin provides:
-# - Complete Agent Skills specification documentation
-# - Validation workflow with skills-ref tool
-# - Best practices for skill development
-# - Cross-platform compatibility guidance
-# - Real-world examples and templates
-```
-
-See [plugins/build-agent-skills/](plugins/build-agent-skills/) for complete documentation.
-
-### Quick Validation
-
-Validate any skill using `uvx`:
-
-```bash
-# Validate skill structure
-uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref \
-  skills-ref validate path/to/skill
-
-# Convenience alias
-alias skills-ref='uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref skills-ref'
-```
-
-**Important**: Always validate skills before committing to ensure compliance with the [Agent Skills specification](https://agentskills.io/specification).
-
-## Testing Locally
-
-Before pushing changes:
-
-1. **Validate skills** - Run `skills-ref validate` on all modified skills
-2. Test plugin installation locally
-3. Verify skill descriptions are clear
-4. Run through examples in documentation
-5. Check that all links work
 
 ## Git Workflow
 
-- Work on feature branches
-- Use conventional commits
-- Push to GitHub
-- Semantic release handles versioning automatically
-- Tag releases for individual plugins as needed
+1. Create feature branch: `git checkout -b feature/description`
+2. Make changes + validate skills
+3. Commit with conventional messages
+4. Push feature branch
+5. Semantic release auto-handles tags/versions
+6. Plugins marked by marketplace.json
 
-## Brand Guidelines
+## Tools & Validation
 
-- Professional, technical tone
-- Focus on practical value and real-world usage
-- Reference agenticinsights.com appropriately
-- Highlight consulting expertise without overselling
+- **skills-ref** - Validates Agent Skills spec: `uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref skills-ref validate <path>`
+- **Justfile** - Version management: `just bump`, `just validate <plugin>`, `just versions`
+- **Linter** - Marketplace compliance: `uv run scripts/marketplace-linter.py`
+- **Browser** - Interactive dashboard: `scripts/launch-marketplace-browser.sh`
+
+## Brand & Tone
+
+- Professional, technical, consulting-focused
+- Real-world value over hype
+- Highlight expertise, not features
+- Target: practitioners, CTOs, engineering leaders
+- Avoid: buzzwords, generic marketing, vague descriptions
+
+## Key References
+
+- Agent Skills spec: https://agentskills.io/specification
+- Official validator: https://github.com/agentskills/agentskills
+- Marketplace plugins: [plugins/](plugins/) directory
+- Examples: See `build-agent-skills` plugin for teaching-skill patterns
