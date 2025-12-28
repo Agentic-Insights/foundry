@@ -4,6 +4,23 @@
 
 ![Plugin Installation Demo](./recordings/assets/plugin-installation.gif)
 
+## Philosophy
+
+Context is everything. Before agents can act, they must understand.
+
+This foundry grew from years of work on **context engineering** - the practice of giving AI systems the right information at the right time. It started with [Codebase Context](https://codebasecontext.org) and the `.context.md` specification, which evolved into the [AGENTS.md](https://agents.md/) standard now adopted across the industry. The same principles drive MCP, skills, and every plugin here.
+
+**Our principles:**
+
+- **Context over prompting** - Rich, structured context beats clever prompt tricks
+- **Open standards** - Portable formats that work across tools and vendors
+- **Consulting-grade** - Production patterns from real client engagements
+- **Evidence over claims** - Test it, measure it, prove it works
+
+These plugins encode repeatable solutions from AI engineering consulting. Each represents a pattern that worked in production, extracted and packaged for reuse.
+
+**Full story:** [codebasecontext.org](https://codebasecontext.org)
+
 ## Quick Install
 
 ```bash
