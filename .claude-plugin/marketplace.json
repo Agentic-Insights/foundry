@@ -130,8 +130,8 @@
     {
       "name": "mem8",
       "source": {
-        "source": "github",
-        "repo": "killerapp/mem8-plugin"
+        "source": "url",
+        "url": "https://github.com/killerapp/mem8-plugin.git"
       },
       "description": "Memory-augmented development workflows - 8 commands for planning, implementation, debugging, and research with persistent memory across sessions",
       "version": "3.1.0",
