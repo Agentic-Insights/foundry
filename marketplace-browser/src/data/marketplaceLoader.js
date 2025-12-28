@@ -10,7 +10,7 @@ export async function loadMarketplace() {
     const isDev = import.meta.env.DEV;
 
     const url = isDev
-      ? '../.claude-plugin/marketplace.json'
+      ? '/data/marketplace.json'
       : 'https://raw.githubusercontent.com/agentic-insights/foundry/main/.claude-plugin/marketplace.json';
 
     const response = await fetch(url);

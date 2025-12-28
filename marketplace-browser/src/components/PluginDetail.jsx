@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { loadPluginReadme } from '../data/marketplaceLoader';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 export function PluginDetail({ plugin, onClose }) {
   const [readme, setReadme] = useState(null);
@@ -188,7 +189,7 @@ export function PluginDetail({ plugin, onClose }) {
                   </div>
                 ) : readme ? (
                   <div className="markdown-content">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                       {readme}
                     </ReactMarkdown>
                   </div>
