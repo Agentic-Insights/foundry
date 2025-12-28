@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Professional Claude Code plugins for AI engineering excellence",
-    "version": "2.6.0"
+    "version": "2.7.0"
   },
   "plugins": [
     {
       "name": "copywriter",
       "source": "./plugins/copywriter",
-      "description": "Expert copywriting for UX, marketing, and product - buttons, errors, landing pages, emails, CTAs, and microcopy patterns",
-      "version": "1.0.0",
+      "description": "Expert copywriting for UX, marketing, and product with Chain-of-Density summarization. Write compelling copy and iteratively compress verbose content.",
+      "version": "1.1.0",
       "author": {
         "name": "agentic-insights"
       },
@@ -24,7 +24,10 @@
         "microcopy",
         "landing-pages",
         "emails",
-        "cta"
+        "cta",
+        "chain-of-density",
+        "summarization",
+        "compression"
       ],
       "license": "Apache-2.0"
     },
@@ -144,25 +147,6 @@
         "g3",
         "coach",
         "quality-assurance"
-      ],
-      "license": "Apache-2.0"
-    },
-    {
-      "name": "chain-of-density",
-      "source": "./plugins/chain-of-density",
-      "description": "Iterative text summarization using Chain-of-Density technique - demonstrates Claude Code orchestration pattern with skill-agent-script architecture",
-      "version": "1.0.0",
-      "author": {
-        "name": "agentic-insights"
-      },
-      "category": "productivity",
-      "tags": [
-        "summarization",
-        "chain-of-density",
-        "compression",
-        "orchestration",
-        "iterative",
-        "documentation"
       ],
       "license": "Apache-2.0"
     },

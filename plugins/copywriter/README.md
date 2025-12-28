@@ -1,13 +1,26 @@
 # Copywriter
 
-Expert copywriting for UX, marketing, and product content.
+Expert copywriting for UX, marketing, and product content with Chain-of-Density summarization.
 
-## What This Skill Does
+## Skills
 
-- **UX Writing** - Button labels, error messages, empty states, form fields, tooltips
-- **Landing Pages** - Hero sections, feature descriptions, CTAs, social proof
-- **Email Copy** - Welcome emails, transactional messages, campaigns
-- **Microcopy** - Tooltips, confirmation dialogs, placeholder text, loading states
+| Skill | Purpose |
+|-------|---------|
+| `copywriter` | Write compelling UX copy, landing pages, emails, microcopy |
+| `chain-of-density` | Iteratively compress verbose text while preserving meaning |
+
+## Components
+
+```
+copywriter/
+├── skills/
+│   ├── copywriter/SKILL.md        # UX/marketing copy patterns
+│   └── chain-of-density/
+│       ├── SKILL.md               # Summarization orchestrator
+│       └── scripts/text_metrics.py
+└── agents/
+    └── cod-iteration.md           # Single-iteration density worker
+```
 
 ## Installation
 
@@ -15,16 +28,9 @@ Expert copywriting for UX, marketing, and product content.
 claude plugin install agentic-insights/foundry --path plugins/copywriter
 ```
 
-Or clone and install locally:
-
-```bash
-git clone https://github.com/agentic-insights/foundry
-claude plugin install ./foundry/plugins/copywriter
-```
-
 ## Usage
 
-The skill activates when you ask about writing copy:
+### Copywriting
 
 ```
 Write error messages for a signup form
@@ -34,25 +40,15 @@ Write error messages for a signup form
 Create hero section copy for a developer tool
 ```
 
-```
-Write a welcome email for new users
-```
+### Chain-of-Density Summarization
 
-## Example Transformations
-
-**Before (generic):**
-```typescript
-<Button>Submit</Button>
-<Error>Invalid input</Error>
+```
+Use chain-of-density to compress this 500-word description to 150 words
 ```
 
-**After (specific, actionable):**
-```typescript
-<Button>Create Account</Button>
-<Error>Please enter a valid email address</Error>
-```
+The CoD skill orchestrates the `cod-iteration` agent serially across 5 turns, each adding density while maintaining length.
 
-## Key Patterns
+## Copywriting Patterns
 
 | Pattern | Formula |
 |---------|---------|
@@ -60,6 +56,16 @@ Write a welcome email for new users
 | Empty states | Headline + Explanation + Action |
 | CTAs | Verb + Benefit + Remove friction |
 | Hero copy | Benefit headline + How it works + CTA + Social proof |
+
+## Chain-of-Density Flow
+
+```
+Turn 1: Base summary (establish length)
+Turn 2: Add entity density (names, numbers, commands)
+Turn 3: Add specificity (concrete examples)
+Turn 4: Add context (why/when it matters)
+Turn 5: Polish for nuance (resolve ambiguities)
+```
 
 ## License
 
