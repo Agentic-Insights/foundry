@@ -1,0 +1,19 @@
+{
+  "name": "copywriter",
+  "version": "1.0.0",
+  "description": "Expert copywriting for UX, marketing, and product - buttons, errors, landing pages, emails, CTAs, and microcopy patterns",
+  "author": {
+    "name": "agentic-insights"
+  },
+  "repository": "https://github.com/agentic-insights/foundry",
+  "license": "Apache-2.0",
+  "keywords": [
+    "copywriting",
+    "ux-writing",
+    "marketing",
+    "microcopy",
+    "landing-pages",
+    "emails",
+    "cta"
+  ]
+}
