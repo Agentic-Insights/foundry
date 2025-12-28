@@ -95,12 +95,6 @@ PARA (Projects, Areas, Resources, Archives) knowledge management system.
 
 ---
 
-## About
-
-AI engineering consulting for startups and scale-ups. These plugins encode patterns from consulting engagements.
-
-[agenticinsights.com](https://agenticinsights.com) | [Book a consultation](https://calendar.app.google/mR44LvVuK46PT5nK9)
-
 ## License
 
 | Plugin | License |
