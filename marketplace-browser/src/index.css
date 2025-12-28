@@ -1,16 +1,192 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
 
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Agentic Insights Brand Colors */
+  --ai-green: #00FF41;
+  --ai-green-dim: #00cc34;
+  --ai-green-glow: rgba(0, 255, 65, 0.15);
+  --ai-green-subtle: rgba(0, 255, 65, 0.08);
+
+  --ai-black: #000000;
+  --ai-card: #0d0d0d;
+  --ai-card-hover: #141414;
+  --ai-border: #1a1a1a;
+  --ai-border-hover: #2a2a2a;
+
+  --ai-white: #ffffff;
+  --ai-gray-100: #e5e5e5;
+  --ai-gray-300: #a3a3a3;
+  --ai-gray-500: #737373;
+  --ai-gray-700: #404040;
+
+  /* Typography */
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #0a0a0a;
+  color-scheme: dark;
+  color: var(--ai-white);
+  background-color: var(--ai-black);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Terminal cursor blink */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+  color: var(--ai-green);
+}
+
+/* Scanline effect for hero */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 65, 0.03) 2px,
+    rgba(0, 255, 65, 0.03) 4px
+  );
+  pointer-events: none;
+}
+
+/* Green glow effect */
+.glow-green {
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.glow-green-box {
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05);
+}
+
+/* Research domain status pulse */
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes pulse-building {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.2; }
+}
+
+.status-live {
+  animation: pulse-live 2s ease-in-out infinite;
+}
+
+.status-building {
+  animation: pulse-building 3s ease-in-out infinite;
+}
+
+/* Research station grid lines */
+.research-grid {
+  background-image:
+    linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Domain card depth effect */
+.domain-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.domain-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--ai-border);
+  transition: all 0.3s ease;
+}
+
+.domain-card:hover::before {
+  border-color: var(--ai-green);
+  box-shadow:
+    0 0 30px rgba(0, 255, 65, 0.1),
+    inset 0 0 30px rgba(0, 255, 65, 0.02);
+}
+
+.domain-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ASCII-style decorative corners */
+.corner-brackets::before,
+.corner-brackets::after {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ai-gray-700);
+  pointer-events: none;
+}
+
+.corner-brackets::before {
+  content: '┌';
+  top: -1px;
+  left: -1px;
+}
+
+.corner-brackets::after {
+  content: '┘';
+  bottom: -1px;
+  right: -1px;
+}
+
+/* Terminal typing effect */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typing-text {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 2s steps(40, end);
+}
+
+/* Staggered reveal animation */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fadeSlideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.reveal-delay-1 { animation-delay: 0.1s; }
+.reveal-delay-2 { animation-delay: 0.2s; }
+.reveal-delay-3 { animation-delay: 0.3s; }
+.reveal-delay-4 { animation-delay: 0.4s; }
+
+/* Focus states */
+*:focus-visible {
+  outline: 1px solid var(--ai-green);
+  outline-offset: 2px;
 }

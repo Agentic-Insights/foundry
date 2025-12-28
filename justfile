@@ -176,7 +176,7 @@ add-plugin plugin:
 
     echo "✅ Added $PLUGIN to marketplace.json"
 
-# Lint marketplace and launch browser with live dashboard
+# Lint marketplace and launch browser with live dashboard (static HTML version)
 browse-marketplace PORT="8000":
     #!/usr/bin/env bash
     set -euo pipefail
@@ -190,3 +190,59 @@ browse-marketplace PORT="8000":
     echo "Press Ctrl+C to stop the server"
     echo ""
     python3 -m http.server {{PORT}}
+
+# Start the React marketplace browser dev server (Vite)
+# Exposes to network for Windows access from WSL
+# Kills any existing process on port 5173, installs deps if needed, opens browser
+dev PORT="5173":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    PORT={{PORT}}
+
+    # Kill any existing process on the port
+    if lsof -ti:$PORT > /dev/null 2>&1; then
+        echo "🔪 Killing existing process on port $PORT..."
+        lsof -ti:$PORT | xargs kill -9 2>/dev/null || true
+        sleep 1
+    fi
+
+    cd marketplace-browser
+
+    # Install dependencies if needed
+    if [[ ! -d node_modules ]]; then
+        echo "📦 Installing dependencies..."
+        npm install
+    fi
+
+    # Get WSL IP for Windows access
+    WSL_IP=$(ip addr show eth0 2>/dev/null | grep 'inet ' | awk '{print $2}' | cut -d/ -f1 || echo "localhost")
+
+    echo ""
+    echo "🚀 Starting Vite dev server on port $PORT..."
+    echo ""
+    echo "┌────────────────────────────────────────────────┐"
+    echo "│  Access from WSL:     http://localhost:$PORT/  │"
+    echo "│  Access from Windows: http://${WSL_IP}:$PORT/  │"
+    echo "└────────────────────────────────────────────────┘"
+    echo ""
+
+    # Open browser on Windows (best effort)
+    cmd.exe /c start "http://${WSL_IP}:$PORT/" 2>/dev/null || true
+
+    # Start dev server
+    npm run dev -- --host --port $PORT
+
+# Build the React marketplace browser for production
+build-browser:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd marketplace-browser
+    if [[ ! -d node_modules ]]; then
+        echo "📦 Installing dependencies..."
+        npm install
+    fi
+    echo "🔨 Building for production..."
+    npm run build
+    echo ""
+    echo "✅ Built to marketplace-browser/dist/"
