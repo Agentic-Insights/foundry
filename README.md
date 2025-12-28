@@ -34,6 +34,7 @@ These plugins encode repeatable solutions from AI engineering consulting. Each r
 | [aws-agentcore-langgraph](./plugins/aws-agentcore-langgraph/) | Deploy LangGraph agents on AWS Bedrock AgentCore | `/plugin install aws-agentcore-langgraph@agentic-insights` |
 | [baml](./plugins/baml/) | Type-safe LLM extraction with BAML codegen | `/plugin install baml@agentic-insights` |
 | [build-agent-skills](./plugins/build-agent-skills/) | Build skills with Agent Skills open standard | `/plugin install build-agent-skills@agentic-insights` |
+| [copywriter](./plugins/copywriter/) | UX/marketing copy + Chain-of-Density summarization | `/plugin install copywriter@agentic-insights` |
 | [adversarial-coach](./plugins/adversarial-coach/) | Adversarial code review (Block g3 research) | `/plugin install adversarial-coach@agentic-insights` |
 | [vhs-recorder](./plugins/vhs-recorder/) | Record terminal demos with Charm VHS | `/plugin install vhs-recorder@agentic-insights` |
 | [para-pkm](./plugins/para-pkm/) | PARA knowledge management system | `/plugin install para-pkm@agentic-insights` |
@@ -78,6 +79,17 @@ Build portable skills with the [Agent Skills](https://agentskills.io) open stand
 </details>
 
 <details>
+<summary><strong>copywriter</strong></summary>
+
+Expert copywriting for UX, marketing, and product content with Chain-of-Density summarization.
+
+- **Skills:** `copywriter` (UX copy, landing pages, emails), `chain-of-density` (iterative compression)
+- **Agent:** `cod-iteration` - Single-iteration density worker
+
+[Documentation →](./plugins/copywriter/) | Credits: [daffy0208/ai-dev-standards](https://github.com/daffy0208/ai-dev-standards)
+</details>
+
+<details>
 <summary><strong>adversarial-coach</strong></summary>
 
 Adversarial code review based on Block's [g3 dialectical autocoding research](https://block.xyz/documents/adversarial-cooperation-in-code-synthesis.pdf).
@@ -119,9 +131,10 @@ PARA (Projects, Areas, Resources, Archives) knowledge management system.
 | aws-agentcore-langgraph | Apache-2.0 |
 | baml | Apache-2.0 |
 | build-agent-skills | Apache-2.0 |
+| copywriter | Apache-2.0 |
 | adversarial-coach | Apache-2.0 |
-| vhs-recorder | MIT |
-| para-pkm | MIT |
+| vhs-recorder | Apache-2.0 |
+| para-pkm | Apache-2.0 |
 
 ## Contributing
 

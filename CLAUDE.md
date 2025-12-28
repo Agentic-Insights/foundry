@@ -94,9 +94,8 @@ chore: Maintenance
 ## Tools & Validation
 
 - **skills-ref** - Validates Agent Skills spec: `uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref skills-ref validate <path>`
-- **Justfile** - Version management: `just bump`, `just validate <plugin>`, `just versions`
-- **Linter** - Marketplace compliance: `uv run scripts/marketplace-linter.py`
-- **Browser** - Interactive dashboard: `scripts/launch-marketplace-browser.sh`
+- **Justfile** - Version management: `just bump`, `just validate <plugin>`, `just versions`, `just lint`
+- **Linter** - Marketplace compliance: `uv run scripts/marketplace-linter.py` or `just lint`
 
 ## Brand & Tone
 

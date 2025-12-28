@@ -257,8 +257,7 @@ results = executor.map(invoke_skill_reviewer, skill_paths)
 - **Skill**: `agentskills-io` — Comprehensive Agent Skills guidance
 - **CLI**: `skills-ref validate` — Official validator (called internally)
 - **Script**: `scripts/validate-skills-repo.sh` — Batch validation wrapper
-- **Linter**: `scripts/marketplace-linter.py` — Marketplace compliance checker
-- **Browser**: `scripts/marketplace-browser.html` — Visual linting dashboard
+- **Linter**: `scripts/marketplace-linter.py` — Marketplace compliance checker (`just lint`)
 
 ## Example Report Output
 

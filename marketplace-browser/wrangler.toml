@@ -1,6 +1,0 @@
-# Cloudflare Pages configuration for codebasecontext.org
-# Deploy: npm run build && wrangler pages deploy dist
-name = "codebase-context-site"
-account_id = "f5abe6cf148f6acb358556290377dc12"
-compatibility_date = "2024-12-01"
-pages_build_output_dir = "./dist"
