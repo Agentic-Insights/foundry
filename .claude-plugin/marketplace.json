@@ -16,7 +16,7 @@
       "author": {
         "name": "agentic-insights"
       },
-      "category": "development",
+      "category": "dev-tools",
       "tags": [
         "agent-skills",
         "skills",
@@ -54,7 +54,7 @@
       "author": {
         "name": "agentic-insights"
       },
-      "category": "development",
+      "category": "dev-tools",
       "tags": [
         "baml",
         "code-generation",
@@ -95,7 +95,7 @@
       "author": {
         "name": "agentic-insights"
       },
-      "category": "developer-tools",
+      "category": "dev-tools",
       "tags": [
         "vhs",
         "terminal",
@@ -115,7 +115,7 @@
       "author": {
         "name": "agentic-insights"
       },
-      "category": "code-quality",
+      "category": "dev-tools",
       "tags": [
         "adversarial",
         "code-review",
@@ -124,6 +124,29 @@
         "g3",
         "coach",
         "quality-assurance"
+      ],
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "mem8",
+      "source": {
+        "source": "github",
+        "repo": "killerapp/mem8-plugin"
+      },
+      "description": "Memory-augmented development workflows - 8 commands for planning, implementation, debugging, and research with persistent memory across sessions",
+      "version": "3.1.0",
+      "author": {
+        "name": "killerapp"
+      },
+      "category": "productivity",
+      "tags": [
+        "memory",
+        "workflow",
+        "planning",
+        "research",
+        "development",
+        "automation",
+        "persistent-context"
       ],
       "license": "Apache-2.0"
     }
