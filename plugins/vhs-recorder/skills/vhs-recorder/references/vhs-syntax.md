@@ -1,222 +1,51 @@
 # VHS Tape File Syntax Reference
 
-Complete reference for VHS tape file commands and syntax.
-
 ## File Structure
+1. Output Declaration → 2. Settings → 3. Requirements → 4. Hidden Setup → 5. Commands → 6. Hidden Cleanup
 
-Every VHS tape file follows this structure:
-
-```
-┌─────────────────────────────┐
-│ 1. Output Declaration       │  Where to save the recording
-│ 2. Settings/Configuration   │  Terminal appearance & behavior
-│ 3. Requirements (optional)  │  Fail-fast dependency checks
-│ 4. Setup (often hidden)     │  Prepare environment
-│ 5. Recording Commands       │  The actual demonstration
-│ 6. Cleanup (often hidden)   │  Teardown operations
-└─────────────────────────────┘
-```
-
-## Output Commands
-
-Declare where to save recordings:
-
-```tape
-Output demo.gif
-Output demo.mp4
-Output demo.webm
-Output frames/       # PNG sequence for post-processing
-```
-
-**Multi-output strategy**:
-- GIF for web (README, docs)
-- MP4 for social media
-- WebM for modern browsers
-- PNG sequence for post-processing
-
-## Typing Commands
-
-```tape
-# Standard typing (uses global TypingSpeed)
-Type "echo 'Hello, World!'"
-
-# Override typing speed for emphasis
-Type@500ms "This types slowly for dramatic effect"
-
-# Fast typing for boilerplate
-Type@10ms "npm run build && npm test"
-```
-
-## Navigation & Editing
-
-```tape
-# Arrow keys
-Up 2
-Down 1
-Left 5
-Right 3
-
-# Editing
-Backspace 10
-Tab 2
-Space 3
-Enter
-
-# Page navigation
-PageUp
-PageDown
-
-# Modifier keys
-Ctrl+C
-Ctrl+D
-Ctrl+L
-```
-
-## Clipboard Operations
-
-```tape
-# Copy text to clipboard
-Copy "docker-compose up -d"
-
-# Paste from clipboard
-Paste
-```
-
-## Waiting Strategies
-
-```tape
-# Wait for shell prompt (default behavior)
-Wait
-
-# Wait for specific text to appear in output
-Wait /Done in/
-
-# Wait for text anywhere on screen
-Wait+Screen /SUCCESS/
-
-# Custom timeout (default is 15s)
-Wait@5s /Loading complete/
-
-# Fixed sleep for known durations
-Sleep 2s
-```
-
-**Choose the right waiting strategy**:
-- `Wait` (no args) → Shell prompt returns
-- `Wait /pattern/` → Specific output appears in last command
-- `Wait+Screen /pattern/` → Text appears anywhere on screen
-- `Sleep <duration>` → Known fixed delays
-
-## Visibility Control
-
-```tape
-Hide
-
-# Commands here won't appear in the recording
-Type "npm install --silent"
-Enter
-Sleep 5s
-Type "clear"
-Enter
-
-Show
-```
-
-**When to use hidden setup**:
-- Installing dependencies
-- Cloning repositories
-- Building projects
-- Creating test files
-- Clearing the terminal before recording starts
-
-## Requirements
-
-Fail early if dependencies are missing:
-
-```tape
-Require git
-Require node
-Require npm
-Require docker
-```
-
-Place `Require` commands at the top of the file, immediately after settings.
-
-## Environment Variables
-
-```tape
-Env DATABASE_URL "postgresql://localhost/demo"
-Env LOG_LEVEL "debug"
-Env NODE_ENV "development"
-```
-
-## Screenshot Capture
-
-```tape
-# Capture frame at specific point
-Type "curl https://api.example.com/status"
-Enter
-Wait /200 OK/
-Screenshot screenshots/success.png
-Sleep 1s
-```
-
-## Comments
-
-```tape
-# This is a comment
-Type "echo 'This is a command'"  # Inline comments work too
-```
-
-## Command Reference Table
+## Command Reference
 
 | Command | Syntax | Description |
 |---------|--------|-------------|
-| `Output` | `Output file.gif` | Declare output file |
-| `Type` | `Type "text"` | Type text |
+| `Output` | `Output file.gif` | Declare output (gif/mp4/webm/frames/) |
+| `Type` | `Type "text"` | Type text at global TypingSpeed |
 | `Type@` | `Type@500ms "text"` | Type with custom speed |
-| `Enter` | `Enter` | Press Enter key |
-| `Wait` | `Wait` | Wait for prompt |
+| `Enter` | `Enter` | Press Enter |
+| `Wait` | `Wait` | Wait for shell prompt |
 | `Wait` | `Wait /pattern/` | Wait for output text |
-| `Wait+Screen` | `Wait+Screen /pattern/` | Wait for text on screen |
-| `Wait@` | `Wait@5s /pattern/` | Wait with timeout |
+| `Wait+Screen` | `Wait+Screen /pat/` | Wait for text anywhere on screen |
+| `Wait@` | `Wait@5s /pattern/` | Wait with custom timeout |
 | `Sleep` | `Sleep 2s` | Fixed pause |
-| `Up/Down` | `Up 2` | Arrow keys |
-| `Left/Right` | `Left 5` | Arrow keys |
+| `Up/Down` | `Up 2`, `Down 1` | Arrow navigation |
+| `Left/Right` | `Left 5`, `Right 3` | Arrow navigation |
 | `Backspace` | `Backspace 10` | Delete characters |
-| `Tab` | `Tab 2` | Tab key |
-| `Space` | `Space 3` | Space key |
-| `PageUp/PageDown` | `PageUp` | Page navigation |
-| `Ctrl+` | `Ctrl+C` | Control key combo |
+| `Tab/Space` | `Tab 2`, `Space 3` | Tab/space keys |
+| `PageUp/Down` | `PageUp` | Page navigation |
+| `Ctrl+` | `Ctrl+C`, `Ctrl+D` | Control key combos |
 | `Copy` | `Copy "text"` | Copy to clipboard |
 | `Paste` | `Paste` | Paste from clipboard |
-| `Hide` | `Hide` | Stop recording |
+| `Hide` | `Hide` | Stop recording (setup/cleanup) |
 | `Show` | `Show` | Resume recording |
-| `Require` | `Require git` | Check dependency |
+| `Require` | `Require git` | Fail-fast dependency check |
 | `Env` | `Env VAR "value"` | Set environment variable |
 | `Screenshot` | `Screenshot file.png` | Capture frame |
 | `Set` | `Set Width 1200` | Configure setting |
 
-## Multi-Stage Demonstrations Pattern
+## Wait Strategy Selection
+- `Wait` (no args) - Shell prompt returns
+- `Wait /pattern/` - Text in last command output
+- `Wait+Screen /pattern/` - Text anywhere on screen
+- `Sleep <duration>` - Known fixed delays
 
+## Hidden Sections
+Use `Hide`/`Show` for: installing deps, cloning repos, building, creating test files, clearing terminal.
+
+## Multi-Stage Pattern
 ```tape
-# Stage 1: Show the problem
-Type "git status"
-Enter
-Wait
-Sleep 2s
-
-# Stage 2: Apply the fix
-Type "git add ."
-Enter
-Type "git commit -m 'fix: resolve merge conflict'"
-Enter
-Wait
-Sleep 1s
-
-# Stage 3: Verify resolution
-Type "git status"
-Enter
-Wait
-Sleep 3s
+# Stage 1: Problem
+Type "git status" → Enter → Wait → Sleep 2s
+# Stage 2: Fix
+Type "git add ." → Enter → Type "git commit -m 'fix'" → Enter → Wait
+# Stage 3: Verify
+Type "git status" → Enter → Wait → Sleep 3s
 ```

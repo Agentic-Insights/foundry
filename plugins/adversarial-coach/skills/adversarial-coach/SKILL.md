@@ -1,11 +1,9 @@
 ---
 name: adversarial-coach
-description: Adversarial implementation review based on Block's g3 dialectical autocoding research
+description: Adversarial implementation review based on Block's g3 dialectical autocoding research. Use when validating implementation completeness against requirements with fresh objectivity.
 ---
 
 # /coach - Adversarial Implementation Review
-
-Invoke an adversarial coach to validate your implementation against requirements. Based on Block's g3 dialectical autocoding research.
 
 ## Usage
 
@@ -13,174 +11,112 @@ Invoke an adversarial coach to validate your implementation against requirements
 /coach [requirements-file]
 ```
 
-**Examples:**
-```
-/coach                           # Coach reviews current work, infers requirements from context
-/coach requirements.md           # Coach validates against specific requirements file
-/coach SPEC.md                   # Coach validates against spec
-```
+- `/coach` - Infer requirements from context
+- `/coach requirements.md` - Validate against specific file
 
-## How This Works
+## Coach-Player Loop
 
-You are the **orchestrator** of an adversarial coach-player loop:
+You orchestrate this dialectical loop between implementing agent (player) and reviewer (coach):
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  COACH-PLAYER LOOP                                              │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  1. You (player) implement features                             │
-│                         ↓                                       │
-│  2. /coach invokes adversarial review                           │
-│                         ↓                                       │
-│  3. Coach returns:                                              │
-│     • IMPLEMENTATION_APPROVED → Done!                           │
-│     • Specific fixes needed → Continue to step 4                │
-│                         ↓                                       │
-│  4. You address the feedback                                    │
-│                         ↓                                       │
-│  5. Loop back to step 2 until approved                          │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+1. You (player) implement features
+2. `/coach` invokes adversarial review with independent evaluation of compliance to requirements
+3. Coach returns: `IMPLEMENTATION_APPROVED` or specific fixes
+4. Address feedback, loop until approved
 
-## Your Task When /coach Is Invoked
+## Review Process
 
 ### Step 1: Identify Requirements
 
-First, establish what you're validating against:
+Check (in order):
+- Specified requirements file or issue/ticket mentioned
+- `requirements.md`, `REQUIREMENTS.md`, `SPEC.md`, `TODO.md`
+- Conversation context; ask user if nothing found
 
-1. If a requirements file is specified, read it
-2. Otherwise, look for common requirement sources:
-   - `requirements.md`, `REQUIREMENTS.md`
-   - `SPEC.md`, `spec.md`
-   - `TODO.md` with acceptance criteria
-   - Recent conversation context about what should be built
-3. If no requirements found, ask the user what they want validated
+### Step 2: Adversarial Review
 
-### Step 2: Perform Adversarial Review
+Review with **fresh objectivity** - discard prior knowledge, don't rationalize shortcuts.
 
-Review the implementation with **fresh objectivity**. You are the coach now - discard any prior knowledge of implementation decisions or shortcuts.
+| Check Category | Items |
+|----------------|-------|
+| Requirements | Each item: implemented or missing with specific gap |
+| Compilation | Compiles? Tests pass? Runs? |
+| Common Gaps | Auth on endpoints, token refresh endpoint, HTTPS, bcrypt for passwords, error handling, input validation |
+| Functional | Test actual flows (not just compilation), verify edge cases work |
+| Test Coverage | Auth error cases (401/403), token expiry, invalid inputs, rate limits |
 
-**Check each of these systematically:**
+### Step 3: Return Verdict
 
-1. **Requirements Compliance**
-   - Go through each requirement item
-   - Mark as ✅ implemented or ❌ missing/incomplete
-
-2. **Compilation/Execution**
-   - Does the code compile without errors?
-   - Do tests pass?
-   - Can the application actually run?
-
-3. **Common Gaps** (things implementers often miss)
-   - Authentication/authorization on all endpoints
-   - HTTPS enforcement
-   - Error handling for edge cases
-   - Input validation
-   - Missing tests for error paths
-   - Incomplete UI flows
-
-4. **Functional Verification**
-   - If there's a UI, test the actual flows
-   - If there's an API, test the endpoints
-   - Verify the feature actually works, not just compiles
-
-### Step 3: Return Your Verdict
-
-#### If Implementation Is Complete (>95%):
-
+**If approved (>95% complete):**
 ```
 IMPLEMENTATION_APPROVED
 
-Summary of validation:
-- [Requirement 1]: ✅ Verified
-- [Requirement 2]: ✅ Verified
-- Compilation: ✅ Success
-- Tests: ✅ All passing
+- [Requirement 1]: Verified
+- [Requirement 2]: Verified
+- Compilation: Success
+- Tests: All passing
 ```
 
-#### If Improvements Are Needed:
-
+**If fixes needed:**
 ```
 REQUIREMENTS COMPLIANCE:
-- ✅ [Requirement]: Implemented correctly
-- ❌ [Requirement]: Missing - [specific gap]
+- [Requirement]: Implemented
+- [Requirement]: Missing - [specific gap]
 
 IMMEDIATE ACTIONS NEEDED:
-1. [Specific, actionable fix]
-2. [Specific, actionable fix]
-3. [Specific, actionable fix]
+1. [Specific fix with file/line if known]
+2. [Specific fix]
 ```
 
 ## Key Principles
 
-### Be Rigorous But Fair
-- Catch real gaps, not style preferences
-- Focus on functionality over aesthetics
-- Security issues are always worth flagging
+**Rigorous but fair:**
+- Catch real gaps (security, logic, data flow), not style preferences
+- Functionality over aesthetics; always flag security issues (auth, crypto, validation)
 
-### Be Concise
-- Bullet points, not essays
-- Specific issues, not vague concerns
-- No file contents in feedback
-- No verbose analysis process
+**Concise:**
+- Bullets, not essays; specific issues, not vague concerns
+- No file contents or verbose analysis in output
 
-### Fresh Context Is Your Superpower
-- Review as if you've never seen this code
-- Don't rationalize shortcuts that were made
-- Validate against requirements, not intentions
+**Fresh context is your superpower:**
+- Review as if you've never seen this code; validate against requirements, not intentions
 
-## The Magic Signal
+## Magic Signal
 
-The string `IMPLEMENTATION_APPROVED` is the termination signal. Only use it when:
+`IMPLEMENTATION_APPROVED` = termination signal
 
-- All requirements are genuinely met
-- Code compiles and runs
-- Tests pass
-- No significant gaps remain
+Only use when: all requirements met, code compiles/runs, tests pass, no significant gaps.
 
-If in doubt, don't approve - provide specific feedback instead.
+If in doubt, don't approve.
 
-## Example Session
+## Minimal Example
 
 ```
-User: I just finished implementing the user auth feature. /coach SPEC.md
+User: /coach SPEC.md
 
-Claude: [Reads SPEC.md, reviews implementation]
-
+Claude:
 REQUIREMENTS COMPLIANCE:
-- ✅ User registration endpoint
-- ✅ Login with JWT tokens
-- ✅ Password hashing with bcrypt
-- ❌ Logout endpoint - not implemented
-- ❌ Token refresh - missing
+- User registration endpoint (bcrypt hashing)
+- Login with JWT tokens
+- Logout endpoint - not implemented
+- Token refresh - missing /auth/refresh endpoint
 
 IMMEDIATE ACTIONS NEEDED:
-1. Add POST /auth/logout endpoint that invalidates tokens
-2. Add POST /auth/refresh endpoint for token renewal
-3. Add test coverage for auth error cases
+1. Add POST /auth/logout endpoint
+2. Add POST /auth/refresh for token renewal
+3. Add tests for 401 on expired tokens
 
 ---
 
-User: [Implements the fixes] /coach SPEC.md
+User: [fixes] /coach SPEC.md
 
-Claude: [Reviews again]
-
+Claude:
 IMPLEMENTATION_APPROVED
-
-All requirements verified:
-- ✅ Registration, login, logout, refresh endpoints
-- ✅ JWT token handling with proper expiry
-- ✅ Password security with bcrypt
-- ✅ 12 tests passing
+- All auth endpoints verified (register, login, logout, refresh)
+- 18 tests passing including auth error cases
 ```
 
-## Research Background
-
-This skill implements the coach role from Block's **dialectical autocoding** research:
+## Research
 
 - **Paper**: [Adversarial Cooperation in Code Synthesis](https://block.xyz/documents/adversarial-cooperation-in-code-synthesis.pdf)
-- **Reference Implementation**: [g3](https://github.com/dhanji/g3)
-
-Key insight: "Discard the implementing agent's self-report of success and perform an independent evaluation of compliance to requirements."
+- **Implementation**: [g3](https://github.com/dhanji/g3)
+- **Key insight**: Discard implementing agent's self-report; perform independent evaluation against requirements.

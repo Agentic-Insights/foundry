@@ -1,122 +1,56 @@
 # AgentCore CLI Reference
 
-Quick reference for AgentCore primitives. Use `scripts/` utilities for common discovery tasks.
-
 ## Primitives Overview
 
 | Primitive | Purpose | agentcore CLI | AWS CLI |
 |-----------|---------|---------------|---------|
-| **Runtime** | Deploy/manage agents | `agentcore status/deploy/invoke` | `list-agent-runtimes` |
-| **Memory** | STM/LTM persistence | `agentcore memory` | `list-memories` |
-| **Gateway** | API→MCP tools | `agentcore gateway` | `list-gateways` |
-| **Identity** | OAuth/credentials | `agentcore identity` | `list-workload-identities` |
-| **Code Interpreter** | Sandboxed code execution | - | `list-code-interpreters` |
-| **Browser** | Web browsing capability | - | `list-browsers` |
-| **Observability** | Traces/logs | `agentcore obs` | CloudWatch |
-| **Policy** | Guardrails (preview) | - | `list-policies` |
-| **Evaluator** | Quality metrics (preview) | - | `list-evaluators` |
+| Runtime | Deploy/manage agents | `status/deploy/invoke` | `list-agent-runtimes` |
+| Memory | STM/LTM persistence | `memory` | `list-memories` |
+| Gateway | API to MCP tools | `gateway` | `list-gateways` |
+| Identity | OAuth/credentials | `identity` | `list-workload-identities` |
+| Code Interpreter | Sandboxed code | - | `list-code-interpreters` |
+| Browser | Web browsing | - | `list-browsers` |
+| Observability | Traces/logs | `obs` | CloudWatch |
 
-## agentcore CLI
+## agentcore CLI Commands
 
-### Configuration
-```bash
-agentcore configure                 # Interactive setup (region, auth, defaults)
-```
+| Command | Purpose |
+|---------|---------|
+| `agentcore configure` | Interactive setup (creates `.bedrock_agentcore.yaml` - add to .gitignore) |
+| `agentcore status` | Current agent status |
+| `agentcore deploy` | Deploy via CodeBuild (recommended) |
+| `agentcore deploy --local` | Local dev server |
+| `agentcore invoke '{"prompt":"Hi"}'` | Test invocation |
+| `agentcore destroy` | Cleanup all resources |
+| `agentcore dev` | Hot-reload dev server |
 
-**Important:** This creates `.bedrock_agentcore.yaml` in your project directory containing local configuration. **Add this file to `.gitignore`** - it should not be committed to version control.
+### Memory Commands
+- `agentcore memory list` / `create NAME` / `get --memory-id ID` / `delete --memory-id ID`
 
-```bash
-echo ".bedrock_agentcore.yaml" >> .gitignore
-```
+### Gateway Commands
+- `agentcore gateway list` / `create NAME` / `target list`
 
-### Runtime
-```bash
-agentcore status                    # Current agent status
-agentcore deploy                    # Deploy (CodeBuild, recommended)
-agentcore deploy --local            # Local dev server
-agentcore invoke '{"prompt":"Hi"}'  # Test invocation
-agentcore destroy                   # Cleanup all resources
-agentcore dev                       # Hot-reload dev server
-```
+### Identity Commands
+- `agentcore identity list` / `create NAME`
 
-### Memory
-```bash
-agentcore memory list               # List all memories
-agentcore memory create NAME        # Create new memory
-agentcore memory get --memory-id ID # Get memory details
-agentcore memory delete --memory-id ID
-```
-
-### Gateway
-```bash
-agentcore gateway list              # List gateways
-agentcore gateway create NAME       # Create gateway
-agentcore gateway target list       # List targets
-```
-
-### Identity
-```bash
-agentcore identity list             # List credential providers
-agentcore identity create NAME      # Create provider
-```
-
-### Observability
-```bash
-agentcore obs traces                # View recent traces
-agentcore obs logs                  # View logs
-agentcore obs spans                 # View spans
-```
+### Observability Commands
+- `agentcore obs traces` / `logs` / `spans`
 
 ## AWS CLI (bedrock-agentcore-control)
 
-### List All Resources
-```bash
-# Runtimes (agents)
-aws bedrock-agentcore-control list-agent-runtimes --region us-east-1
-
-# Memory
-aws bedrock-agentcore-control list-memories --region us-east-1
-
-# Gateway
-aws bedrock-agentcore-control list-gateways --region us-east-1
-aws bedrock-agentcore-control list-gateway-targets --gateway-id GW_ID --region us-east-1
-
-# Identity
-aws bedrock-agentcore-control list-workload-identities --region us-east-1
-aws bedrock-agentcore-control list-api-key-credential-providers --region us-east-1
-aws bedrock-agentcore-control list-oauth2-credential-providers --region us-east-1
-
-# Policy (preview)
-aws bedrock-agentcore-control list-policies --region us-east-1
-aws bedrock-agentcore-control list-policy-engines --region us-east-1
-
-# Evaluators (preview)
-aws bedrock-agentcore-control list-evaluators --region us-east-1
-aws bedrock-agentcore-control list-online-evaluation-configs --region us-east-1
-
-# Other
-aws bedrock-agentcore-control list-browsers --region us-east-1
-aws bedrock-agentcore-control list-code-interpreters --region us-east-1
-```
-
-### Get Resource Details
-```bash
-aws bedrock-agentcore-control get-agent-runtime --agent-runtime-id ID --region us-east-1
-aws bedrock-agentcore-control get-memory --memory-id ID --region us-east-1
-aws bedrock-agentcore-control get-gateway --gateway-id ID --region us-east-1
-aws bedrock-agentcore-control get-policy --policy-id ID --region us-east-1
-```
+| Operation | Command |
+|-----------|---------|
+| List runtimes | `aws bedrock-agentcore-control list-agent-runtimes --region us-east-1` |
+| List memories | `aws bedrock-agentcore-control list-memories --region us-east-1` |
+| List gateways | `aws bedrock-agentcore-control list-gateways --region us-east-1` |
+| Get runtime | `aws bedrock-agentcore-control get-agent-runtime --agent-runtime-id ID` |
+| Get memory | `aws bedrock-agentcore-control get-memory --memory-id ID` |
 
 ### CloudWatch Logs
 ```bash
 # Runtime logs
 aws logs tail /aws/bedrock-agentcore/runtimes/AGENT_ID-DEFAULT \
-  --log-stream-name-prefix "$(date +%Y/%m/%d)/[runtime-logs]" \
-  --region us-east-1 --since 1h
-
-# Memory logs
-aws logs tail /aws/vendedlogs/bedrock-agentcore/memory/APPLICATION_LOGS/MEMORY_ID \
-  --region us-east-1 --since 1h
+  --log-stream-name-prefix "$(date +%Y/%m/%d)/[runtime-logs]" --since 1h
 ```
 
 ## Environment Variables
@@ -126,21 +60,11 @@ Auto-injected by toolkit during `agentcore launch`:
 - `BEDROCK_AGENTCORE_MEMORY_NAME` - Memory name
 - `AWS_REGION` - Deployment region
 
-Pass custom env vars:
-```bash
-agentcore launch --env GUARDRAIL_ID="xyz" --env KB_ID="abc"
-```
-
-## Quick Discovery Scripts
-
-See `scripts/` directory:
-- `list-all.sh` - List all AgentCore resources in region
-- `agent-status.sh` - Detailed status of current agent
-- `tail-logs.sh` - Stream runtime logs
+Custom: `agentcore launch --env GUARDRAIL_ID="xyz" --env KB_ID="abc"`
 
 ## Documentation
 
 | Resource | URL |
 |----------|-----|
 | CLI Reference | https://aws.github.io/bedrock-agentcore-starter-toolkit/api-reference/cli.html |
-| AWS CLI bedrock-agentcore-control | https://awscli.amazonaws.com/v2/documentation/api/latest/reference/bedrock-agentcore-control/index.html |
+| AWS CLI | https://awscli.amazonaws.com/v2/documentation/api/latest/reference/bedrock-agentcore-control/index.html |
