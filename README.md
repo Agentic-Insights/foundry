@@ -2,7 +2,7 @@
 
 **Where agentic tools are forged.** Claude Code plugins for AI engineering.
 
-![Plugin Installation Demo](./recordings/plugin-installation.gif)
+![Plugin Installation Demo](./recordings/assets/plugin-installation.gif)
 
 ## Quick Install
 
