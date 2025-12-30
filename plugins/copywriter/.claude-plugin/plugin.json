@@ -1,6 +1,6 @@
 {
   "name": "copywriter",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Expert copywriting for UX, marketing, and product with Chain-of-Density summarization. Write compelling copy and iteratively compress verbose content.",
   "author": {
     "name": "agentic-insights"
@@ -17,6 +17,8 @@
     "cta",
     "chain-of-density",
     "summarization",
-    "compression"
+    "compression",
+    "skill-condenser",
+    "agent-skills"
   ]
 }
