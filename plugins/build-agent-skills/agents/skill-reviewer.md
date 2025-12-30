@@ -102,22 +102,62 @@ Severity: Warning (allowed but not spec-compliant)
 - Detect: Presence of code examples, references, diagrams
 - Detect: Programming languages used
 
-### Step 6: Validate References & Assets
+### Step 6: Validate File References (Critical)
 
-If `references/` exists:
-- List all `.md` files
-- Check: Links in SKILL.md point to existing files
+**Note**: `skills-ref` does NOT validate file references. This step fills that gap.
+
+#### 6a: Parse SKILL.md for References
+
+Scan SKILL.md body for:
+- Markdown links: `[text](references/file.md)`, `[text](assets/template.json)`
+- Script references: `scripts/deploy.py`, `python scripts/extract.py`
+- Inline code blocks referencing files: `` `scripts/helper.sh` ``
+
+Collect all paths that start with `references/`, `scripts/`, or `assets/`.
+
+#### 6b: Validate Each Reference
+
+For each referenced path:
+- Check: File exists at `<skill_dir>/<referenced_path>`
 - **Error if**: Referenced file missing
-- Severity: Error (broken link)
+- Severity: Critical (broken reference = broken skill)
 
-If `assets/` exists:
-- List all files (no specific requirements)
-- Verify: Not empty
+Example issues:
+```json
+{
+  "field": "references/api.md",
+  "severity": "error",
+  "message": "Referenced file not found: references/api.md",
+  "fix": "Create the file or remove the link from SKILL.md"
+}
+```
 
-If `scripts/` exists:
-- List all executable files
-- Check: Shebang or extension indicates executable type
-- Note: Executability in report metadata
+#### 6c: Directory Purpose Validation
+
+**`scripts/`** — Workflow executables (agents run these)
+- Should contain: `.py`, `.sh`, `.js`, `.ts` files
+- Check: Has shebang or recognized extension
+- **Warning if**: Contains non-executable files (move to assets/)
+
+**`references/`** — Extended documentation (loaded on-demand)
+- Should contain: `.md` files primarily
+- Used for: API docs, detailed guides, specifications
+
+**`assets/`** — Static resources (templates, examples, configs)
+- Used for: Templates, sample configs, diagrams, example files
+- **Not for**: Runnable scripts (those go in scripts/)
+
+**Warning if**:
+- Scripts in assets/ (should be in scripts/)
+- Markdown docs in assets/ (should be in references/)
+- Example projects (should be in plugin-level `examples/` not skill assets/)
+
+#### 6d: One-Level-Deep Rule
+
+Per spec: "Keep file references one level deep from SKILL.md"
+
+- **Warning if**: References like `references/subdir/file.md` (too deep)
+- **Prefer**: Flat structure within each subdirectory
 
 ### Step 7: Use agentskills-io Skill for Validation
 

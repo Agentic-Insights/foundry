@@ -9,7 +9,6 @@ This plugin now includes two powerful subagents alongside the comprehensive `age
 | Subagent | Purpose | Pattern | Time |
 |----------|---------|---------|------|
 | **skill-reviewer** | Validate skills for spec compliance | Parallel | ~30s per skill |
-| **chain-of-density-summarizer** | Compress verbose text to terse format | Sequential | ~2-3 min per doc |
 
 ---
 

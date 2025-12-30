@@ -23,7 +23,7 @@
 ```
 skill-name/
 ├── SKILL.md          # Required: frontmatter + instructions
-├── scripts/          # Optional: executable scripts
+├── scripts/          # Optional: executable scripts  
 ├── references/       # Optional: extended docs (loaded on-demand)
 └── assets/           # Optional: templates, diagrams
 ```

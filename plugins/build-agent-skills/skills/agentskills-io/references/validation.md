@@ -6,8 +6,6 @@
 # Using uvx (recommended, no install needed)
 uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref skills-ref validate path/to/skill
 
-# Shell alias
-alias skills-ref='uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref skills-ref'
 ```
 
 ## Commands
@@ -34,6 +32,47 @@ alias skills-ref='uvx --from git+https://github.com/agentskills/agentskills#subd
 |---------|--------|------------|
 | No license field | Still valid | Add `license: Apache-2.0` |
 | SKILL.md >500 lines | Context efficiency | Refactor to references/ |
+
+## File Reference Validation
+
+**Note**: `skills-ref` does NOT validate file references. Use the `skill-reviewer` subagent or check manually.
+
+### What to Validate
+
+| Pattern | Example | Check |
+|---------|---------|-------|
+| Markdown links | `[guide](references/api.md)` | File exists |
+| Script refs | `scripts/deploy.py` | File exists, executable |
+| Code blocks | `` `python scripts/helper.py` `` | File exists |
+
+### Directory Purpose
+
+| Directory | Contains | Not For |
+|-----------|----------|---------|
+| `scripts/` | Runnable code agents execute | Static examples |
+| `references/` | Extended docs (.md) loaded on-demand | Templates, configs |
+| `assets/` | Templates, configs, diagrams | Runnable scripts |
+
+### One-Level-Deep Rule
+
+Per spec: Keep file references one level deep.
+
+```markdown
+✅ Good: [API](references/api.md)
+❌ Bad:  [API](references/v2/api.md)
+```
+
+### Manual Check
+
+```bash
+# Find all file references in SKILL.md
+grep -oE '(references|scripts|assets)/[^)"\s]+' path/to/SKILL.md
+
+# Verify each exists
+for ref in $(grep -oE '(references|scripts|assets)/[^)"\s]+' SKILL.md); do
+  test -f "$ref" || echo "Missing: $ref"
+done
+```
 
 ## CI/CD Integration
 

@@ -1,88 +1,212 @@
 # Agent Skills Examples
 
+## Style Comparison
+
+### Terse Style (Reference Skills)
+
+Use for: API docs, color palettes, command references, configuration guides.
+
+```yaml
+---
+name: brand-guidelines
+description: Apply brand colors and typography. Use when styling outputs with company identity.
+---
+# Brand Styling
+
+## Colors
+- Dark: `#141413`
+- Light: `#faf9f5`
+- Accent: `#d97757`
+
+## Typography
+- Headings: Poppins (24pt+)
+- Body: Lora
+
+## Usage
+Apply dark background with light text, or light background with dark text.
+```
+
+**Characteristics**:
+- <100 lines
+- Bullet lists, not prose
+- Values inline, no explanation needed
+- No examples section (self-evident)
+
+### Methodology Style (Process Skills)
+
+Use for: Debugging workflows, development practices, deployment processes.
+
+```yaml
+---
+name: systematic-debugging
+description: Use when encountering bugs, test failures, or unexpected behavior.
+---
+# Systematic Debugging
+
+## Overview
+Find root cause before attempting fixes. Symptom fixes are failure.
+
+## The Iron Law
+NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+
+## When to Use
+- Test failures
+- Bugs in production
+- Unexpected behavior
+
+## Four Phases
+1. **Root Cause** - Read errors, reproduce, trace data flow
+2. **Pattern Analysis** - Find working examples, compare
+3. **Hypothesis** - Form theory, test minimally
+4. **Implementation** - Create test, fix, verify
+
+## Common Rationalizations
+| Excuse | Reality |
+|--------|---------|
+| "Too simple" | Simple bugs have root causes |
+| "No time" | Systematic is faster than thrashing |
+
+## Red Flags - STOP
+- "Quick fix for now"
+- "Just try changing X"
+- Proposing fixes without investigation
+```
+
+**Characteristics**:
+- 200-400 lines acceptable
+- Tables for quick reference
+- Good/Bad examples
+- Rationalizations section
+- Red Flags checklist
+
+## CSO: Claude Search Optimization
+
+### Critical Rule
+
+**Description = When to Use, NOT What the Skill Does**
+
+When description summarizes workflow, agents may follow description instead of reading full skill.
+
+### Bad Descriptions
+
+```yaml
+# ❌ Summarizes workflow - agent follows this shortcut
+description: Use when executing plans - dispatches subagent per task with code review
+
+# ❌ Too much process detail
+description: Use for TDD - write test first, watch it fail, write minimal code, refactor
+
+# ❌ Vague
+description: Helps with PDFs
+```
+
+### Good Descriptions
+
+```yaml
+# ✅ Triggering conditions only
+description: Use when executing implementation plans with independent tasks
+
+# ✅ Symptoms, not process
+description: Use when tests have race conditions or pass/fail inconsistently
+
+# ✅ Concrete triggers
+description: Extract text and tables from PDF files. Use when processing documents.
+```
+
 ## Minimal Skill (PDF Text Extraction)
 
 ```yaml
 ---
 name: extract-pdf-text
-description: Extract text from PDFs using PyPDF2. Use when processing documents or invoices.
-license: MIT
+description: Extract text from PDF documents. Use when processing uploads or preparing for RAG.
 ---
-# Extract PDF Text
+# PDF Text Extraction
 
-## Prerequisites
-- Python 3.8+, PyPDF2 (`pip install PyPDF2`)
+## When to Use
+- Processing uploaded documents
+- Ingesting invoices or reports
+- Preparing PDFs for RAG pipelines
 
-## Usage
-```python
-from PyPDF2 import PdfReader
-reader = PdfReader('doc.pdf')
-for page in reader.pages:
-    print(page.extract_text())
+## Quick Start
+```bash
+python scripts/extract.py input.pdf > output.txt
 ```
+
+## Troubleshooting
+- **Scanned PDF**: Use OCR first
+- **Encrypted**: Decrypt before extraction
 ```
 
 ## Standard Skill (AWS Lambda)
 
 ```yaml
 ---
-name: deploy-lambda-function
-description: Deploy Python functions to AWS Lambda with dependencies. Use for serverless APIs or event processors.
+name: deploy-lambda
+description: Deploy Python functions to AWS Lambda. Use for serverless APIs or event processors.
 license: Apache-2.0
-compatibility: AWS CLI 2.x, Python 3.9+, valid AWS credentials
+compatibility: AWS CLI 2.x, Python 3.9+
 metadata:
   author: agentic-insights
   version: "1.0.0"
-  category: aws-deployment
 allowed-tools: bash aws zip python
 ---
 # AWS Lambda Deployment
 
 ## Prerequisites
-- AWS CLI configured, IAM role ARN for Lambda
+- AWS CLI configured
+- IAM role ARN for Lambda
 
 ## Quick Deploy
 ```bash
-python scripts/deploy.py --function-name my-fn --handler handler.lambda_handler --runtime python3.9
+python scripts/deploy.py --function-name my-fn --handler handler.main
 ```
 
 ## Troubleshooting
-- **Size limit**: Use Lambda Layers for large deps
-- **Timeout**: Increase in config (max 900s)
-- **AccessDenied**: Need `lambda:CreateFunction`, `iam:PassRole` permissions
+| Issue | Fix |
+|-------|-----|
+| Size limit | Use Lambda Layers |
+| Timeout | Increase (max 900s) |
+| AccessDenied | Add `lambda:CreateFunction` permission |
 ```
 
-## Complex Skill (K8s Deploy with Progressive Disclosure)
+## Progressive Disclosure Skill (K8s)
 
 ```yaml
 ---
-name: k8s-app-deploy
-description: Deploy apps to Kubernetes with health checks and rollback. Use for microservices or APIs on K8s.
+name: k8s-deploy
+description: Deploy apps to Kubernetes with health checks. Use for microservices on K8s.
 license: Apache-2.0
-compatibility: kubectl, docker, helm 3.x, valid kubeconfig
-metadata:
-  author: devops-team
-  version: "2.0.0"
-  difficulty: advanced
-allowed-tools: bash kubectl docker helm
+compatibility: kubectl, helm 3.x
 ---
 # Kubernetes Deployment
 
 ## Quick Deploy
 ```bash
-python scripts/quick-deploy.py --app my-api --image myregistry/my-api:v1.0.0 --namespace prod
+python scripts/deploy.py --app my-api --image registry/api:v1
 ```
 
 ## References
-- [Deployment patterns](references/deployment-patterns.md)
-- [Configuration](references/configuration.md)
+- [Deployment patterns](references/patterns.md)
+- [Configuration](references/config.md)
 - [Troubleshooting](references/troubleshooting.md)
 ```
 
+Main SKILL.md stays under 50 lines; details in references/.
+
+## Token Efficiency
+
+| Skill Type | Target | Location |
+|------------|--------|----------|
+| Getting-started | <150 words | Always loaded |
+| Frequently-used | <200 words | Often loaded |
+| Standard | <500 words | On-demand |
+| Complex | <200 words main | + references/ |
+
 ## Key Patterns
 
-| Pattern | When | Example |
-|---------|------|---------|
-| Minimal | Simple tools | 50-100 lines, no refs |
-| Standard | Most skills | 200-300 lines, scripts/ |
-| Progressive | Complex domains | <200 lines main, refs for details |
+| Pattern | Lines | When |
+|---------|-------|------|
+| Terse | <100 | Reference data, configs |
+| Standard | 100-300 | Most skills |
+| Methodology | 200-400 | Processes, workflows |
+| Progressive | <200 main | Complex domains |
